@@ -165,7 +165,8 @@ main{max-width:1080px;margin:0 auto;padding:0 20px 60px}
 .info-item strong{font-size:18px;font-weight:900;color:var(--navy)}
 .room-list{display:flex;flex-direction:column;gap:8px;margin-top:12px}
 .room-row{display:flex;justify-content:space-between;align-items:center;border:1px solid var(--line);border-radius:12px;padding:13px 16px}
-.room-class{font-size:15px;font-weight:900;color:var(--red)}
+.room-class{font-size:15px;font-weight:900;color:var(--red);min-width:60px}
+.room-time{flex:1;font-size:15px;font-weight:700;color:var(--text);padding:0 12px}
 .room-no{font-size:15px;font-weight:700;color:var(--text)}
 .room-no b{font-size:18px;font-weight:900;color:var(--navy)}
 .pending{color:var(--muted)!important;font-weight:700!important;font-size:15px!important}
@@ -473,6 +474,42 @@ const teacherRoom = {
   '여정은':'1호', '양유인':'12호', '권다은':'25호', '권도윤':'27호', '이자영':'9호',
   '최민선':'8호', '윤나라':'26호', '김은지':'29호', '김민채':'31호'
 };
+// 학교별 개설 반 (반마다 같은 시간 · 같은 강의실)
+const classDays = {
+  '개원중학교': ['월수반', '월금반', '화목반'],
+  '개포중학교': ['월수반', '월금반', '화목반'],
+  '경원중학교': ['화목반'],
+  '구룡중학교': ['월수반', '월금반', '화목반'],
+  '내곡중학교': ['월수반', '월금반'],
+  '대명중학교': ['월수반', '월금반', '화목반'],
+  '대왕중학교': ['월수반', '월금반', '화목반'],
+  '대원국제중학교': ['월수반', '월금반'],
+  '대청중학교': ['월수반', '월금반', '화목반'],
+  '대치중학교': ['월수반', '월금반', '화목반'],
+  '도곡중학교': ['월수반', '월금반', '화목반'],
+  '무학중학교': ['월수반'],
+  '상계제일중학교': ['월수반', '월금반'],
+  '서운중학교': ['월수반', '월금반', '화목반'],
+  '서일중학교': ['화목반'],
+  '세곡중학교': ['월수반', '월금반', '화목반'],
+  '수서중학교': ['월수반', '월금반'],
+  '숙명여자중학교': ['월수반', '월금반', '화목반'],
+  '신천중학교': ['화목반'],
+  '언남중학교': ['화목반'],
+  '언북중학교': ['월수반', '월금반'],
+  '역삼중학교': ['월수반', '월금반', '화목반'],
+  '영동중학교': ['월수반', '월금반', '화목반'],
+  '은성중학교': ['월수반', '월금반', '화목반'],
+  '잠실여자중학교': ['화목반'],
+  '정신여자중학교': ['화목반'],
+  '정화여자중학교': ['화목반'],
+  '중동중학교': ['월수반', '월금반', '화목반'],
+  '진선여자중학교': ['월수반', '월금반', '화목반'],
+  '청담중학교': ['월수반', '화목반'],
+  '행당중학교': ['화목반'],
+  '휘문중학교': ['화목반'],
+};
+const CLASS_TIME = '19:00–20:30';
 
 // 학교별 직전대비수업 (정해지면 입력)
 // 예) '대왕중학교':[{date:'12월 7일', day:'월요일', time:'오후 5시', room:'1호'}]
@@ -636,9 +673,10 @@ function openSchool(s){
         <div class="info-item"><span>교과 담당 선생님</span><strong class="${teacher?'':'pending'}">${teacher ? teacher+' 선생님' : '추후 안내'}</strong></div>
       </div>
       <div class="room-list">
-        <div class="room-row"><span class="room-class">강의실</span><span class="room-no ${room?'':'pending'}">${room ? `<b>${room}</b>` : '추후 안내'}</span></div>
+        ${(classDays[s.name] || []).length ? classDays[s.name].map(c=>`<div class="room-row"><span class="room-class">${c}</span><span class="room-time">${CLASS_TIME}</span><span class="room-no ${room?'':'pending'}">${room ? `<b>${room}</b>` : '강의실 추후 안내'}</span></div>`).join('')
+          : `<div class="room-row"><span class="room-class">강의실</span><span class="room-no ${room?'':'pending'}">${room ? `<b>${room}</b>` : '추후 안내'}</span></div>`}
       </div>
-      <p style="font-size:12px;color:var(--muted);margin:12px 0 0">교과 담당 선생님이 학교별 숙제장 · 프린트 · 직전대비 자료를 준비합니다.</p>
+      <p style="font-size:12px;color:var(--muted);margin:12px 0 0">※ 학교별 교과수업 시간 기준입니다. 이어서 20:30–22:00 담임 1:1 밀착관리가 진행됩니다.<br>교과 담당 선생님이 학교별 숙제장 · 프린트 · 직전대비 자료를 준비합니다.</p>
     </div>
     <div class="card">
       <span class="badge">수업 시간</span>
