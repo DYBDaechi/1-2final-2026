@@ -223,7 +223,22 @@ main{max-width:1080px;margin:0 auto;padding:0 20px 60px}
 .lock-help{font-size:12px;color:var(--muted);margin-top:6px}
 
 /* final plan */
-.plan{margin-top:20px}
+.plan{margin-top:12px}
+.plan{padding:0;overflow:hidden;border:2px solid var(--navy)}
+.plan-toggle{width:100%;border:0;background:#fff;text-align:left;padding:22px 26px;display:flex;align-items:center;justify-content:space-between;gap:16px;cursor:pointer;font-family:inherit}
+.plan-toggle:hover{background:#FAFBFD}
+.plan-toggle-period{display:inline-block;margin-top:8px;font-size:13px;color:var(--muted);background:var(--red-soft);padding:4px 10px;border-radius:8px}
+.plan-toggle-period b{color:var(--red);font-weight:900}
+.plan-toggle-btn{flex:0 0 auto;display:inline-flex;align-items:center;gap:6px;background:var(--navy);color:#fff;font-size:14px;font-weight:900;padding:11px 16px;border-radius:999px;animation:nudge 2s ease-in-out infinite}
+.plan-toggle-btn svg{transition:transform .35s ease}
+.plan.open .plan-toggle-btn{background:var(--red);animation:none}
+.plan.open .plan-toggle-btn svg{transform:rotate(180deg)}
+@keyframes nudge{0%,100%{transform:translateY(0)}50%{transform:translateY(3px)}}
+.plan-body{display:grid;grid-template-rows:0fr;transition:grid-template-rows .5s cubic-bezier(.22,.8,.3,1)}
+.plan.open .plan-body{grid-template-rows:1fr}
+.plan-inner{overflow:hidden;min-height:0;padding:0 26px;opacity:0;transform:translateY(-8px);transition:opacity .35s ease,transform .45s ease,padding .45s ease}
+.plan.open .plan-inner{opacity:1;transform:none;padding:4px 26px 26px}
+
 .plan-period{background:var(--red-soft);border-radius:12px;padding:10px 16px;text-align:right}
 .plan-period span{display:block;font-size:11px;font-weight:900;color:var(--red)}
 .plan-period b{font-size:17px;font-weight:900;color:var(--navy)}
@@ -249,6 +264,9 @@ main{max-width:1080px;margin:0 auto;padding:0 20px 60px}
 .plan-image[open] summary::after{content:"–"}
 .plan-image img{display:block;width:100%;max-width:640px;margin:0 auto;height:auto}
 @media(max-width:640px){
+  .plan-toggle{padding:18px;flex-direction:column;align-items:stretch}
+  .plan-toggle-btn{justify-content:center}
+  .plan-inner,.plan.open .plan-inner{padding-left:18px;padding-right:18px}
   .plan-period{text-align:left;width:100%}
   .plan-flow{flex-direction:column}
   .flow-arrow{display:none}
@@ -334,42 +352,17 @@ footer{background:var(--navy);color:rgba(255,255,255,.7);font-size:12px}
     <div class="track" id="track">
     <div class="slide" id="slide0">
     <div class="clinic-slot"></div>
-    <div class="overview">
-      <div class="block">
-        <span class="kicker">중1 기말 대비</span>
-        <h2 class="block-title">학교별 맞춤 내신 수업</h2>
-        <div class="points" style="margin-top:16px">
-          <div class="point"><div class="point-ic">1</div><div><strong>학교별 교과서 수업</strong><span>교과서 본문 · 문법 중심 수업과 학교 프린트 수업</span></div></div>
-          <div class="point"><div class="point-ic">2</div><div><strong>기출 문제 대비</strong><span>학교별 교과수업 시간에 학교 기출 유형까지 함께 정리</span></div></div>
-          <div class="point"><div class="point-ic">3</div><div><strong>담임 1:1 밀착관리</strong><span>오답 관리 · 문법 구두 테스트 · 보강이 필요한 부분 백업</span></div></div>
-        </div>
-        <div class="time-box">
-          <div class="time-row"><div class="time-label">19:00–20:30</div><div class="time-content"><strong>학교별 교과수업</strong><span>교과서 본문 · 문법 중심 · 학교 프린트 · 기출 문제</span></div></div>
-          <div class="time-row"><div class="time-label">20:30–22:00</div><div class="time-content"><strong>담임 1:1 밀착관리</strong><span>오답 관리 · 문법 구두 테스트 · 보강이 필요한 부분 백업</span></div></div>
-        </div>
-        <div class="notice" style="margin-top:14px">※ 학교별 시험 일정 및 시험 범위에 따라 내신 수업 기간, 주말보강 및 FINAL 직전대비 일정은 상이합니다.</div>
-      </div>
-      <div class="block cta">
-        <div>
-          <span class="kicker" style="color:var(--yellow)">신입생 안내</span>
-          <h2 class="block-title">대치본원 중1 레벨테스트</h2>
-          <p>입학 상담 및 반 배정을 위한 레벨테스트입니다.<br><b>예약 시 캠퍼스를 ‘대치본원’으로 선택해 주세요.</b></p>
-        </div>
-        <div>
-          <a class="cta-btn" href="https://www.choisun.co.kr/main/sub?goPage=leveltest_req&amp;menu_code=7_72&amp;CAMP_LOCA_CD=001" target="_blank" rel="noopener noreferrer">레벨테스트 신청하기 →</a>
-          <div class="cta-tel">상담 문의 <a href="tel:025567094">02-556-7094</a></div>
-        </div>
-      </div>
-    </div>
     <section class="block plan" id="planSection">
-      <div class="block-head">
-        <div>
+      <button class="plan-toggle" type="button" aria-expanded="false" aria-controls="planBody" onclick="togglePlan()">
+        <div class="plan-toggle-copy">
           <span class="kicker">GET READY FOR 기말고사</span>
           <h2 class="block-title">2026 중1 2학기 기말고사 내신 대비</h2>
+          <span class="plan-toggle-period">특강 기간 <b>11월 11일(수) – 12월 9일(수)</b></span>
         </div>
-        <div class="plan-period"><span>특강 기간</span><b>11월 11일(수) – 12월 9일(수)</b></div>
-      </div>
-
+        <span class="plan-toggle-btn"><span class="lbl">자세히 보기</span><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"><path d="M6 9l6 6 6-6"/></svg></span>
+      </button>
+      <div class="plan-body" id="planBody">
+        <div class="plan-inner">
       <div class="plan-flow">
         <div class="flow-step"><small>11/11 – 11/20</small><b>학교별 교과서 수업</b></div>
         <div class="flow-arrow" aria-hidden="true">›</div>
@@ -403,7 +396,36 @@ footer{background:var(--navy);color:rgba(255,255,255,.7);font-size:12px}
         <summary>기말고사 안내문 원본 보기</summary>
         <a href="images/notices/final_notice.jpg" target="_blank" rel="noopener"><img src="images/notices/final_notice.jpg" alt="2026 중1 2학기 기말고사 내신 대비 안내문" loading="lazy"></a>
       </details>
+        </div>
+      </div>
     </section>
+    <div class="overview">
+      <div class="block">
+        <span class="kicker">중1 기말 대비</span>
+        <h2 class="block-title">학교별 맞춤 내신 수업</h2>
+        <div class="points" style="margin-top:16px">
+          <div class="point"><div class="point-ic">1</div><div><strong>학교별 교과서 수업</strong><span>교과서 본문 · 문법 중심 수업과 학교 프린트 수업</span></div></div>
+          <div class="point"><div class="point-ic">2</div><div><strong>기출 문제 대비</strong><span>학교별 교과수업 시간에 학교 기출 유형까지 함께 정리</span></div></div>
+          <div class="point"><div class="point-ic">3</div><div><strong>담임 1:1 밀착관리</strong><span>오답 관리 · 문법 구두 테스트 · 보강이 필요한 부분 백업</span></div></div>
+        </div>
+        <div class="time-box">
+          <div class="time-row"><div class="time-label">19:00–20:30</div><div class="time-content"><strong>학교별 교과수업</strong><span>교과서 본문 · 문법 중심 · 학교 프린트 · 기출 문제</span></div></div>
+          <div class="time-row"><div class="time-label">20:30–22:00</div><div class="time-content"><strong>담임 1:1 밀착관리</strong><span>오답 관리 · 문법 구두 테스트 · 보강이 필요한 부분 백업</span></div></div>
+        </div>
+        <div class="notice" style="margin-top:14px">※ 학교별 시험 일정 및 시험 범위에 따라 내신 수업 기간, 주말보강 및 FINAL 직전대비 일정은 상이합니다.</div>
+      </div>
+      <div class="block cta">
+        <div>
+          <span class="kicker" style="color:var(--yellow)">신입생 안내</span>
+          <h2 class="block-title">대치본원 중1 레벨테스트</h2>
+          <p>입학 상담 및 반 배정을 위한 레벨테스트입니다.<br><b>예약 시 캠퍼스를 ‘대치본원’으로 선택해 주세요.</b></p>
+        </div>
+        <div>
+          <a class="cta-btn" href="https://www.choisun.co.kr/main/sub?goPage=leveltest_req&amp;menu_code=7_72&amp;CAMP_LOCA_CD=001" target="_blank" rel="noopener noreferrer">레벨테스트 신청하기 →</a>
+          <div class="cta-tel">상담 문의 <a href="tel:025567094">02-556-7094</a></div>
+        </div>
+      </div>
+    </div>
     <button class="next-btn" onclick="goSlide(1)">
       <span><small>NEXT</small>학교별 내신 스케줄 보기</span>
       <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14M13 6l6 6-6 6"/></svg>
@@ -913,6 +935,17 @@ document.addEventListener('keydown',e=>{
   if(e.key==='ArrowRight') goSlide(1);
   if(e.key==='ArrowLeft') goSlide(0);
 });
+
+/* ---------- 기말 안내 펼치기 ---------- */
+function togglePlan(){
+  const sec = document.getElementById('planSection');
+  const open = sec.classList.toggle('open');
+  sec.querySelector('.plan-toggle').setAttribute('aria-expanded', open);
+  sec.querySelector('.plan-toggle-btn .lbl').textContent = open ? '접기' : '자세히 보기';
+  const t0 = performance.now();
+  (function tick(){ fitSlider(); if(performance.now()-t0 < 650) requestAnimationFrame(tick); })();
+  if(open) setTimeout(()=>sec.scrollIntoView({behavior:'smooth', block:'start'}), 80);
+}
 
 /* ---------- Init ---------- */
 document.querySelectorAll('.tab').forEach(t=>t.addEventListener('click',()=>setTab(t.dataset.tab)));
