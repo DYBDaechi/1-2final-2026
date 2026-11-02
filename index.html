@@ -96,6 +96,10 @@ main{max-width:1080px;margin:0 auto;padding:0 20px 60px}
 .cta .block-title{color:#fff}
 .cta p{font-size:13px;color:rgba(255,255,255,.78);margin:8px 0 18px}
 .cta p b{color:var(--yellow)}
+.cta-row{margin-top:12px;flex-direction:row;align-items:center;gap:24px}
+.cta-row p{margin:6px 0 0}
+.cta-row > div:last-child{flex:0 0 260px}
+@media(max-width:760px){.cta-row{flex-direction:column;align-items:stretch}.cta-row > div:last-child{flex:none}.cta-row p{margin-bottom:14px}}
 .cta-btn{display:flex;align-items:center;justify-content:center;text-decoration:none;background:var(--red);color:#fff;font-size:15px;font-weight:900;padding:13px 16px;border-radius:12px;transition:.15s}
 .cta-btn:hover{filter:brightness(1.08);transform:translateY(-1px)}
 .cta-tel{margin-top:10px;font-size:13px;color:rgba(255,255,255,.8);text-align:center}
@@ -223,7 +227,7 @@ main{max-width:1080px;margin:0 auto;padding:0 20px 60px}
 .lock-help{font-size:12px;color:var(--muted);margin-top:6px}
 
 /* final plan */
-.plan{margin-top:12px}
+.plan{margin-top:12px;scroll-margin-top:76px}
 .plan{padding:0;overflow:hidden;border:2px solid var(--navy)}
 .plan-toggle{width:100%;border:0;background:#fff;text-align:left;padding:22px 26px;display:flex;align-items:center;justify-content:space-between;gap:16px;cursor:pointer;font-family:inherit}
 .plan-toggle:hover{background:#FAFBFD}
@@ -353,7 +357,7 @@ footer{background:var(--navy);color:rgba(255,255,255,.7);font-size:12px}
     <div class="slide" id="slide0">
     <div class="clinic-slot"></div>
     <section class="block plan" id="planSection">
-      <button class="plan-toggle" type="button" aria-expanded="false" aria-controls="planBody" onclick="togglePlan()">
+      <button class="plan-toggle" type="button" aria-expanded="false" aria-controls="planBody" onclick="toggleAcc('planSection')">
         <div class="plan-toggle-copy">
           <span class="kicker">GET READY FOR 기말고사</span>
           <h2 class="block-title">2026 중1 2학기 기말고사 내신 대비</h2>
@@ -399,11 +403,18 @@ footer{background:var(--navy);color:rgba(255,255,255,.7);font-size:12px}
         </div>
       </div>
     </section>
-    <div class="overview">
-      <div class="block">
-        <span class="kicker">중1 기말 대비</span>
-        <h2 class="block-title">학교별 맞춤 내신 수업</h2>
-        <div class="points" style="margin-top:16px">
+    <section class="block plan" id="lessonSection">
+      <button class="plan-toggle" type="button" aria-expanded="false" onclick="toggleAcc('lessonSection')">
+        <div class="plan-toggle-copy">
+          <span class="kicker">중1 기말 대비</span>
+          <h2 class="block-title">학교별 맞춤 내신 수업</h2>
+          <span class="plan-toggle-period">수업 시간 <b>19:00 – 22:00</b> · 교과수업 + 담임 1:1 밀착관리</span>
+        </div>
+        <span class="plan-toggle-btn"><span class="lbl">자세히 보기</span><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"><path d="M6 9l6 6 6-6"/></svg></span>
+      </button>
+      <div class="plan-body">
+        <div class="plan-inner">
+        <div class="points">
           <div class="point"><div class="point-ic">1</div><div><strong>학교별 교과서 수업</strong><span>교과서 본문 · 문법 중심 수업과 학교 프린트 수업</span></div></div>
           <div class="point"><div class="point-ic">2</div><div><strong>기출 문제 대비</strong><span>학교별 교과수업 시간에 학교 기출 유형까지 함께 정리</span></div></div>
           <div class="point"><div class="point-ic">3</div><div><strong>담임 1:1 밀착관리</strong><span>오답 관리 · 문법 구두 테스트 · 보강이 필요한 부분 백업</span></div></div>
@@ -413,8 +424,10 @@ footer{background:var(--navy);color:rgba(255,255,255,.7);font-size:12px}
           <div class="time-row"><div class="time-label">20:30–22:00</div><div class="time-content"><strong>담임 1:1 밀착관리</strong><span>오답 관리 · 문법 구두 테스트 · 보강이 필요한 부분 백업</span></div></div>
         </div>
         <div class="notice" style="margin-top:14px">※ 학교별 시험 일정 및 시험 범위에 따라 내신 수업 기간, 주말보강 및 FINAL 직전대비 일정은 상이합니다.</div>
+        </div>
       </div>
-      <div class="block cta">
+    </section>
+      <div class="block cta cta-row">
         <div>
           <span class="kicker" style="color:var(--yellow)">신입생 안내</span>
           <h2 class="block-title">대치본원 중1 레벨테스트</h2>
@@ -424,7 +437,6 @@ footer{background:var(--navy);color:rgba(255,255,255,.7);font-size:12px}
           <a class="cta-btn" href="https://www.choisun.co.kr/main/sub?goPage=leveltest_req&amp;menu_code=7_72&amp;CAMP_LOCA_CD=001" target="_blank" rel="noopener noreferrer">레벨테스트 신청하기 →</a>
           <div class="cta-tel">상담 문의 <a href="tel:025567094">02-556-7094</a></div>
         </div>
-      </div>
     </div>
     <button class="next-btn" onclick="goSlide(1)">
       <span><small>NEXT</small>학교별 내신 스케줄 보기</span>
@@ -936,9 +948,9 @@ document.addEventListener('keydown',e=>{
   if(e.key==='ArrowLeft') goSlide(0);
 });
 
-/* ---------- 기말 안내 펼치기 ---------- */
-function togglePlan(){
-  const sec = document.getElementById('planSection');
+/* ---------- 펼치기 / 접기 ---------- */
+function toggleAcc(id){
+  const sec = document.getElementById(id);
   const open = sec.classList.toggle('open');
   sec.querySelector('.plan-toggle').setAttribute('aria-expanded', open);
   sec.querySelector('.plan-toggle-btn .lbl').textContent = open ? '접기' : '자세히 보기';
