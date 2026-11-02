@@ -80,14 +80,14 @@ main{max-width:1080px;margin:0 auto;padding:0 20px 60px}
 .time-content{padding:12px 16px;font-size:14px}
 .time-content strong{display:block}
 .time-content span{font-size:12px;color:var(--muted)}
-.clinic{margin-top:14px;border-radius:14px;background:linear-gradient(120deg,#C8102E 0%,#9E0C24 100%);color:#fff;padding:18px 20px;display:flex;align-items:center;justify-content:space-between;gap:16px;position:relative;overflow:hidden}
+.clinic{margin-top:12px;padding:22px 26px;border-radius:14px;background:linear-gradient(120deg,#C8102E 0%,#9E0C24 100%);color:#fff;padding:18px 20px;display:flex;align-items:center;justify-content:space-between;gap:16px;position:relative;overflow:hidden}
 .clinic::after{content:"";position:absolute;right:-40px;top:-60px;width:180px;height:180px;border-radius:50%;background:rgba(255,255,255,.08);pointer-events:none}
 .clinic-copy{position:relative;z-index:1;min-width:0}
 .clinic-tag{display:inline-block;font-size:11px;font-weight:900;background:var(--yellow);color:var(--navy);padding:2px 8px;border-radius:999px;margin-bottom:6px}
-.clinic-title{font-size:18px;font-weight:900;letter-spacing:.01em;margin:0}
+.clinic-title{font-size:22px;font-weight:900;letter-spacing:.01em;margin:0}
 .clinic-desc{font-size:13px;color:rgba(255,255,255,.85);margin:3px 0 0}
 .clinic-desc b{color:#fff}
-.clinic-btn{position:relative;z-index:1;flex:0 0 auto;display:inline-flex;align-items:center;justify-content:center;text-decoration:none;background:#fff;color:var(--red);font-size:14px;font-weight:900;padding:12px 18px;border-radius:11px;transition:.15s;white-space:nowrap}
+.clinic-btn{position:relative;z-index:1;flex:0 0 auto;display:inline-flex;align-items:center;justify-content:center;text-decoration:none;background:#fff;color:var(--red);font-size:15px;font-weight:900;padding:14px 22px;border-radius:11px;transition:.15s;white-space:nowrap}
 .clinic-btn:hover{transform:translateY(-1px);box-shadow:0 6px 14px rgba(0,0,0,.18)}
 .clinic-btn.off{background:rgba(255,255,255,.2);color:#fff;cursor:default}
 .notice{background:#FFF8E6;border:1px solid #F3E2B5;padding:12px 14px;border-radius:12px;font-size:13px;line-height:1.6;color:#5B4A1E}
@@ -130,6 +130,9 @@ main{max-width:1080px;margin:0 auto;padding:0 20px 60px}
 .school-name{font-size:15px;font-weight:900;color:var(--navy)}
 .school-date{font-size:12px;color:var(--muted);font-weight:500}
 .school-teacher{font-size:12px;color:var(--text);font-weight:700}
+.wk-tag{align-self:flex-start;margin-top:4px;font-size:11px;font-weight:900;color:#1F5BD8;background:#EAF1FF;padding:2px 8px;border-radius:999px}
+.wk-card{border:2px solid var(--navy)}
+.wk-card .image-wrap{max-width:420px;margin-left:auto;margin-right:auto}
 .dbadge{position:absolute;top:12px;right:12px;font-size:11px;font-weight:900;padding:2px 8px;border-radius:999px;background:var(--red);color:#fff}
 .dbadge.soon{background:var(--yellow);color:var(--navy)}
 .dbadge.done{background:#E6E8EE;color:var(--muted)}
@@ -296,6 +299,7 @@ footer{background:var(--navy);color:rgba(255,255,255,.7);font-size:12px}
     <div class="slider" id="slider">
     <div class="track" id="track">
     <div class="slide" id="slide0">
+    <div class="clinic-slot"></div>
     <div class="overview">
       <div class="block">
         <span class="kicker">중1 기말 대비</span>
@@ -309,7 +313,6 @@ footer{background:var(--navy);color:rgba(255,255,255,.7);font-size:12px}
           <div class="time-row"><div class="time-label">19:00–20:30</div><div class="time-content"><strong>학교별 교과수업</strong><span>교과서 본문 · 문법 중심 · 학교 프린트 · 기출 문제</span></div></div>
           <div class="time-row"><div class="time-label">20:30–22:00</div><div class="time-content"><strong>담임 1:1 밀착관리</strong><span>오답 관리 · 문법 구두 테스트 · 보강이 필요한 부분 백업</span></div></div>
         </div>
-        <div class="clinic-slot"></div>
         <div class="notice" style="margin-top:14px">※ 학교별 시험 일정 및 시험 범위에 따라 내신 수업 기간, 주말보강 및 FINAL 직전대비 일정은 상이합니다.</div>
       </div>
       <div class="block cta">
@@ -511,6 +514,12 @@ const classDays = {
 };
 const CLASS_TIME = '19:00–20:30';
 
+// 학교별 주말 추가수업 (안내문 이미지는 images/notices 폴더)
+const weekendClass = {
+  '도곡중학교': {dates:'11/14(토) · 11/21(토)', time:'오전 11시 – 오후 1시', content:'본문 & 대화문 & 문법 수업', image:'images/notices/final_weekend_dogok.jpg'},
+  '언남중학교': {dates:'11/14(토) · 11/21(토)', time:'오전 11시 – 오후 1시', content:'본문 & 대화문 & 문법 수업', image:'images/notices/final_weekend_eonnam.jpg'}
+};
+
 // 학교별 직전대비수업 (정해지면 입력)
 // 예) '대왕중학교':[{date:'12월 7일', day:'월요일', time:'오후 5시', room:'1호'}]
 const finalClassInfo = {};
@@ -628,6 +637,7 @@ function renderSchools(){
       <span class="school-name">${shortName(s.name)}${s.name.includes('여자')?'자중':'중'}</span>
       <span class="school-date">${examRange(s)}</span>
       <span class="school-teacher">${t ? t+' 선생님' : '&nbsp;'}</span>
+      ${weekendClass[s.name] ? '<span class="wk-tag">주말 추가수업</span>' : ''}
     </button>`;
   }).join('');
   empty.style.display = list.length ? 'none' : 'block';
@@ -665,7 +675,18 @@ function openSchool(s){
     <div class="prep">${s.name} 기말고사 일정은 확인 후 안내드릴 예정입니다.</div>`;
 
   // 수업 안내
-  document.getElementById('classes').innerHTML = `
+  const wk = weekendClass[s.name];
+  document.getElementById('classes').innerHTML = (wk ? `
+    <div class="card wk-card">
+      <span class="badge">주말 추가수업</span>
+      <h3>100점 도약을 위한 ${s.name} 주말 추가수업</h3>
+      <div class="info-grid">
+        <div class="info-item"><span>일정</span><strong>${wk.dates}</strong></div>
+        <div class="info-item"><span>시간</span><strong>${wk.time}</strong></div>
+        <div class="info-item" style="grid-column:1/-1"><span>수업 내용</span><strong>${wk.content}</strong></div>
+      </div>
+      ${wk.image ? `<div class="image-wrap" style="margin-top:14px"><img class="school-image" src="${wk.image}" alt="${s.name} 주말 추가수업 안내문" loading="lazy"></div>` : ''}
+    </div>` : '') + `
     <div class="card">
       <span class="badge">담당 선생님 · 강의실</span>
       <h3>${s.name} 내신 수업 안내</h3>
