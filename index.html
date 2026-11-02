@@ -221,6 +221,39 @@ main{max-width:1080px;margin:0 auto;padding:0 20px 60px}
 .lock-box h3{font-size:19px;font-weight:900;margin:0 0 6px;color:var(--navy)}
 .lock-box p{font-size:13px;color:var(--muted);margin:0 0 16px}
 .lock-help{font-size:12px;color:var(--muted);margin-top:6px}
+
+/* final plan */
+.plan{margin-top:20px}
+.plan-period{background:var(--red-soft);border-radius:12px;padding:10px 16px;text-align:right}
+.plan-period span{display:block;font-size:11px;font-weight:900;color:var(--red)}
+.plan-period b{font-size:17px;font-weight:900;color:var(--navy)}
+.plan-flow{display:flex;align-items:stretch;gap:8px;margin-bottom:16px}
+.flow-step{flex:1;background:var(--navy);color:#fff;border-radius:12px;padding:12px 14px;display:flex;flex-direction:column;justify-content:center}
+.flow-step small{font-size:12px;color:rgba(255,255,255,.7);font-weight:700}
+.flow-step b{font-size:15px;font-weight:900}
+.flow-step.final{background:var(--red)}
+.flow-arrow{display:flex;align-items:center;font-size:24px;color:var(--muted);font-weight:900}
+.plan-grid{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:10px}
+.plan-item{background:var(--bg);border-radius:12px;padding:14px 16px}
+.plan-item.wide{grid-column:1/-1}
+.plan-item span{display:block;font-size:12px;font-weight:900;color:var(--red);margin-bottom:4px}
+.plan-item strong{display:block;font-size:17px;font-weight:900;color:var(--navy)}
+.plan-item em{display:block;font-style:normal;font-size:13px;color:var(--muted);margin-top:2px}
+.plan-list{margin:4px 0 0;padding-left:20px;font-size:14px;line-height:1.75}
+.plan-list b{color:var(--navy);margin-right:6px}
+.plan-notes{margin:16px 0 0;padding:14px 16px 14px 32px;background:#FFF8E6;border:1px solid #F3E2B5;border-radius:12px;font-size:13px;line-height:1.7;color:#5B4A1E}
+.plan-image{margin-top:14px;border:1px solid var(--line);border-radius:12px;overflow:hidden}
+.plan-image summary{cursor:pointer;padding:13px 16px;font-size:14px;font-weight:900;color:var(--navy);list-style:none;display:flex;justify-content:space-between;align-items:center}
+.plan-image summary::-webkit-details-marker{display:none}
+.plan-image summary::after{content:"+";font-size:20px;color:var(--red)}
+.plan-image[open] summary::after{content:"–"}
+.plan-image img{display:block;width:100%;max-width:640px;margin:0 auto;height:auto}
+@media(max-width:640px){
+  .plan-period{text-align:left;width:100%}
+  .plan-flow{flex-direction:column}
+  .flow-arrow{display:none}
+  .plan-grid{grid-template-columns:1fr}
+}
 footer{background:var(--navy);color:rgba(255,255,255,.7);font-size:12px}
 .footer-inner{max-width:1080px;margin:0 auto;padding:24px 20px;display:flex;justify-content:space-between;align-items:center;gap:16px;flex-wrap:wrap}
 .footer-inner a{color:#fff;text-decoration:none;font-weight:700}
@@ -328,6 +361,49 @@ footer{background:var(--navy);color:rgba(255,255,255,.7);font-size:12px}
         </div>
       </div>
     </div>
+    <section class="block plan" id="planSection">
+      <div class="block-head">
+        <div>
+          <span class="kicker">GET READY FOR 기말고사</span>
+          <h2 class="block-title">2026 중1 2학기 기말고사 내신 대비</h2>
+        </div>
+        <div class="plan-period"><span>특강 기간</span><b>11월 11일(수) – 12월 9일(수)</b></div>
+      </div>
+
+      <div class="plan-flow">
+        <div class="flow-step"><small>11/11 – 11/20</small><b>학교별 교과서 수업</b></div>
+        <div class="flow-arrow" aria-hidden="true">›</div>
+        <div class="flow-step"><small>11/23 – 12/4</small><b>학교별 프린트 수업</b></div>
+        <div class="flow-arrow" aria-hidden="true">›</div>
+        <div class="flow-step final"><small>12/7 – 12/9</small><b>직전 FINAL 대비 &amp; 학교 시험</b></div>
+      </div>
+
+      <div class="plan-grid">
+        <div class="plan-item"><span>수업 기간</span><strong>7회(+α) 수업 · 주 2회 6h</strong><em>+ FINAL 직전대비 1회</em></div>
+        <div class="plan-item"><span>수업 내용</span><strong>교과서 7과 – 8과</strong><em>학교별·출판사별 기출문제 + 학교별 프린트</em></div>
+        <div class="plan-item wide"><span>수업 구성</span>
+          <ol class="plan-list">
+            <li><b>학교 담당 선생님 설명</b> 문법 개념 정리 + 본문 상세 분석 수업</li>
+            <li><b>기출문제</b> DYB 내신교재 – 대치 지역 학교 기출문제 풀이로 실전 감각 키우기</li>
+            <li><b>Simulation</b> 교과 담당 선생님의 학교별 적중 문제 풀이</li>
+            <li><b>1:1 밀착 관리</b> 담임 선생님의 개별 관리 및 피드백</li>
+          </ol>
+        </div>
+        <div class="plan-item"><span>1차 정규 수업 시작</span><strong>12월 10일(목)</strong><em>12월 7일 – 11일 시험 보는 학교</em></div>
+        <div class="plan-item"><span>2차 정규 수업 시작</span><strong>12월 14일(월)</strong><em>12월 14일 이후 시험 보는 학교</em></div>
+      </div>
+
+      <ul class="plan-notes">
+        <li>교과서 본문 암기 및 구두 확인 &amp; 틀린 문제 검사는 1:1 철저한 담임 관리로 진행됩니다.</li>
+        <li>주말보강 수업 및 학교 프린트 추가 수업은 양과 범위에 따라 진행됩니다. (추후 일정 안내)</li>
+        <li>내신 수업을 수강하는 학생만 내신 교재 구매가 가능합니다. (내신 휴원 시 교재 구매 불가)</li>
+      </ul>
+
+      <details class="plan-image">
+        <summary>기말고사 안내문 원본 보기</summary>
+        <a href="images/notices/final_notice.jpg" target="_blank" rel="noopener"><img src="images/notices/final_notice.jpg" alt="2026 중1 2학기 기말고사 내신 대비 안내문" loading="lazy"></a>
+      </details>
+    </section>
     <button class="next-btn" onclick="goSlide(1)">
       <span><small>NEXT</small>학교별 내신 스케줄 보기</span>
       <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14M13 6l6 6-6 6"/></svg>
