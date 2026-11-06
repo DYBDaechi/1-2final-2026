@@ -136,6 +136,7 @@ main{max-width:1080px;margin:0 auto;padding:0 20px 60px}
 .school-date{font-size:12px;color:var(--muted);font-weight:500}
 .school-teacher{font-size:12px;color:var(--text);font-weight:700}
 .wk-tag{align-self:flex-start;margin-top:4px;font-size:11px;font-weight:900;color:#1F5BD8;background:#EAF1FF;padding:2px 8px;border-radius:999px}
+.fin-tag{color:var(--red);background:var(--red-soft)}
 .wk-card{border:2px solid var(--navy)}
 .wk-card .image-wrap{max-width:420px;margin-left:auto;margin-right:auto}
 .dbadge{position:absolute;top:12px;right:12px;font-size:11px;font-weight:900;padding:2px 8px;border-radius:999px;background:var(--red);color:#fff}
@@ -642,7 +643,10 @@ const weekendClass = {
 
 // 학교별 직전대비수업 (정해지면 입력)
 // 예) '대왕중학교':[{date:'12월 7일', day:'월요일', time:'오후 5시', room:'1호'}]
-const finalClassInfo = {};
+const finalClassInfo = {
+  '도곡중학교': [{date:'11월 30일', day:'월요일', time:'오후 2시', room:'8호', teacher:'최민선 선생님'}],
+  '언남중학교': [{date:'11월 30일', day:'월요일', time:'오후 5시', room:'24호', teacher:'이자영 선생님'}]
+};
 
 // 학교별 숙제장 이미지 (준비되면 파일 경로 입력)  예) '대왕중학교':'images/homework/daewang.jpg'
 const homeworkImages = {};
@@ -758,6 +762,7 @@ function renderSchools(){
       <span class="school-date">${examRange(s)}</span>
       <span class="school-teacher">${t ? t+' 선생님' : '&nbsp;'}</span>
       ${weekendClass[s.name] ? '<span class="wk-tag">주말 추가수업</span>' : ''}
+      ${finalClassInfo[s.name] ? `<span class="wk-tag fin-tag">직전대비 ${finalClassInfo[s.name].map(f=>f.date.replace('월 ','/').replace('일','')+' '+f.time).join(', ')}</span>` : ''}
     </button>`;
   }).join('');
   empty.style.display = list.length ? 'none' : 'block';
