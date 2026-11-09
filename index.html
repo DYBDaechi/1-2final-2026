@@ -179,6 +179,8 @@ main{max-width:1080px;margin:0 auto;padding:0 20px 60px}
 .exam-day.first{background:var(--navy)}
 .exam-day.first small{color:rgba(255,255,255,.7)}
 .exam-day.first b{color:#fff}
+.eng-tag{display:block;width:fit-content;margin:5px auto 0;font-size:11px;font-weight:900;background:var(--red);color:#fff;padding:1px 8px;border-radius:999px}
+.tent{font-size:13px;font-weight:900;color:#fff;background:var(--yellow);color:var(--navy);padding:2px 9px;border-radius:999px;vertical-align:4px}
 .info-grid{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:12px}
 .info-item{background:var(--bg);border-radius:12px;padding:16px}
 .info-item span{display:block;font-size:12px;color:var(--muted);font-weight:700;margin-bottom:4px}
@@ -656,7 +658,13 @@ const weekendClass = {
 // 예) '대왕중학교':[{date:'12월 7일', day:'월요일', time:'오후 5시', room:'1호'}]
 const finalClassInfo = {
   '도곡중학교': [{date:'11월 30일', day:'월요일', time:'오후 2시', room:'8호', teacher:'최민선 선생님'}],
-  '언남중학교': [{date:'11월 30일', day:'월요일', time:'오후 5시', room:'24호', teacher:'이자영 선생님'}]
+  '언남중학교': [{date:'11월 30일', day:'월요일', time:'오후 5시', room:'24호', teacher:'이자영 선생님'}],
+  '중동중학교': [{date:'12월 6일', day:'일요일', time:'추후 안내', room:'', teacher:'', tentative:true}]
+};
+
+// 학교별 영어 시험 날짜 (확정되면 입력, 'MM-DD')
+const englishDay = {
+  '중동중학교':'12-07'
 };
 
 // 이번 주 암기 숙제 범위 (미니북)  items: [범위, 페이지, 문항]
@@ -799,7 +807,7 @@ function renderSchools(){
       <span class="school-date">${examRange(s)}</span>
       <span class="school-teacher">${t ? t+' 선생님' : '&nbsp;'}</span>
       ${weekendClass[s.name] ? '<span class="wk-tag">주말 추가수업</span>' : ''}
-      ${finalClassInfo[s.name] ? `<span class="wk-tag fin-tag">직전대비 ${finalClassInfo[s.name].map(f=>f.date.replace('월 ','/').replace('일','')+' '+f.time).join(', ')}</span>` : ''}
+      ${finalClassInfo[s.name] ? `<span class="wk-tag fin-tag">직전대비 ${finalClassInfo[s.name].map(f=>f.date.replace('월 ','/').replace('일','')+(f.time && f.time!=='추후 안내' ? ' '+f.time : '')+(f.tentative?' (예정)':'')).join(', ')}</span>` : ''}
     </button>`;
   }).join('');
   empty.style.display = list.length ? 'none' : 'block';
@@ -830,10 +838,10 @@ function openSchool(s){
       <span class="badge">기말고사 일정</span>
       <h3>${s.name} 시험 기간</h3>
       <div class="exam-days">
-        ${s.days.map((d,i)=>`<div class="exam-day"><small>${i+1}일차 · ${DOW[toDate(d).getDay()]}요일</small><b>${fmtLong(d)}</b></div>`).join('')}
+        ${s.days.map((d,i)=>`<div class="exam-day ${englishDay[s.name]===d?'first':''}"><small>${i+1}일차 · ${DOW[toDate(d).getDay()]}요일</small><b>${fmtLong(d)}</b>${englishDay[s.name]===d?'<span class="eng-tag">영어</span>':''}</div>`).join('')}
       </div>
     </div>
-    <div class="notice">※ 위 일정은 학교 전체 고사 기간입니다. 영어 시험 날짜는 학교 시간표 발표 후 안내드립니다.</div>` : `
+    <div class="notice">${englishDay[s.name] ? `※ 위 일정은 학교 전체 고사 기간이며, <b>영어 시험은 ${fmtLong(englishDay[s.name])}(${DOW[toDate(englishDay[s.name]).getDay()]})</b>입니다.` : '※ 위 일정은 학교 전체 고사 기간입니다. 영어 시험 날짜는 학교 시간표 발표 후 안내드립니다.'}</div>` : `
     <div class="prep">${s.name} 기말고사 일정은 확인 후 안내드릴 예정입니다.</div>`;
 
   // 수업 안내
@@ -880,7 +888,7 @@ function openSchool(s){
       <h3>${s.name} 직전대비수업</h3>
       ${fi.map(f=>`
         <div class="final-item-row">
-          <div class="final-date">${f.date} ${f.day}</div>
+          <div class="final-date">${f.date} ${f.day}${f.tentative ? ' <span class="tent">예정</span>' : ''}</div>
           <div class="final-info">
             <div class="info-item"><span>수업 시간</span><strong>${f.time}</strong></div>
             <div class="info-item"><span>강의실</span><strong>${f.room || '추후 안내'}</strong></div>
