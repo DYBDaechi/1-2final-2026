@@ -140,6 +140,14 @@ main{max-width:1080px;margin:0 auto;padding:0 20px 60px}
 .mem-card{border:2px solid var(--red)}
 .mem-date{display:inline-block;white-space:nowrap;font-size:13px;font-weight:900;color:#fff;background:var(--red);padding:2px 10px;border-radius:999px;margin-left:6px;vertical-align:2px}
 .mem-note{margin:-4px 0 10px;font-size:13px;font-weight:700;color:#8A5A00;background:#FFF8E6;border:1px solid #F3E2B5;padding:8px 12px;border-radius:8px}
+.hw-imgs{display:flex;flex-direction:column;gap:10px;margin-top:12px}
+.hw-img{display:block;border:1px solid var(--line);border-radius:12px;overflow:hidden;text-decoration:none;background:#fff}
+.hw-img img{display:block;width:100%;height:auto}
+.hw-broken{display:none;padding:18px;text-align:center;font-size:13px;font-weight:700;color:var(--navy)}
+.hw-img.broken img{display:none}
+.hw-img.broken .hw-broken{display:block}
+.hw-sheet{border:2px solid var(--navy)}
+.hw-past-list{padding:0 14px 4px}
 .mem-list{display:flex;flex-direction:column;gap:8px}
 .mem-row{display:grid;grid-template-columns:1fr auto auto;gap:12px;align-items:center;border:1px solid var(--line);border-radius:12px;padding:12px 16px}
 .mem-part{font-size:15px;font-weight:900;color:var(--navy)}
@@ -668,38 +676,130 @@ const englishDay = {
   '대명중학교':'12-11'
 };
 
-// 이번 주 암기 숙제 범위 (미니북)  items: [범위, 페이지, 문항]
-const MEMO_TITLE = '이번 주 암기 숙제 범위';
-const MEMO_DUE = '11/11(수) – 11/13(금) 수업까지';
-const memorizeRange = {
-  '개원중학교': {items:[['6과 대화문','p.26–28','#1–29'], ['6과 문법 & Think & Write','p.31–33','#58–82']], link:'https://drive.google.com/file/d/1RBT4EttekJZ2tV8U-yw4z2pu6SnT-AD9/view?usp=sharing', note:''},
-  '대왕중학교': {items:[['7과 대화문','p.9–12','#1–34'], ['7과 문법','p.15–16','#62–78'], ['7과 Think & Write','p.16–17','#79–83']], link:'', note:''},
-  '세곡중학교': {items:[['6과 대화문','p.26–28','#1–29'], ['6과 문법 & Think & Write','p.31–33','#58–82']], link:'https://drive.google.com/file/d/1RBT4EttekJZ2tV8U-yw4z2pu6SnT-AD9/view?usp=sharing', note:''},
-  '무학중학교': {items:[['6과 대화문','p.26–28','#1–29'], ['6과 문법 & Think & Write','p.31–33','#58–82']], link:'https://drive.google.com/file/d/1RBT4EttekJZ2tV8U-yw4z2pu6SnT-AD9/view?usp=sharing', note:''},
-  '중동중학교': {items:[['7과 대화문','p.9–12','#1–34'], ['7과 문법','p.15–16','#62–78'], ['7과 Think & Write','p.16–17','#79–83']], link:'', note:''},
-  '숙명여자중학교': {items:[['7과 대화문','p.9–12','#1–34'], ['7과 문법','p.15–16','#62–78'], ['7과 Think & Write','p.16–17','#79–83']], link:'', note:''},
-  '언남중학교': {items:[['4과 본문','P.32–36','#41–80'], ['4과 Review','P.37–38','#93–108']], link:'', note:''},
-  '진선여자중학교': {items:[['7과 대화문','P.7–11','#1–41'], ['7과 문법','P.14–15','#73–84']], link:'', note:''},
-  '도곡중학교': {items:[['7과 본문','p.12–14','#36–63'], ['7과 Review','p.17–20','#91–123']], link:'', note:''},
-  '대명중학교': {items:[['7과 대화문','p.9–12','#1–34'], ['7과 문법','p.15–16','#62–78'], ['7과 Think & Write','p.16–17','#79–83']], link:'', note:''},
-  '내곡중학교': {items:[['7과 대화문','p.9–12','#1–34'], ['7과 문법','p.15–16','#62–78'], ['7과 Think & Write','p.16–17','#79–83']], link:'', note:''},
-  '수서중학교': {items:[['6과 대화문','p.28–32','#1–48'], ['6과 문법','p.34–36','#78–94']], link:'', note:'이전 중간고사 책 사용'},
-  '대청중학교': {items:[['4과 대화문','p.28–31','#1–29'], ['4과 문법','p.34–36','#59–84']], link:'', note:'미니북은 오늘 중으로 배부 예정'},
-  '대치중학교': {items:[['7과 대화문','p.9–12','#1–34'], ['7과 문법','p.15–16','#62–78'], ['7과 Think & Write','p.16–17','#79–83']], link:'', note:''},
-  '신천중학교': {items:[['7과 대화문','p.7–11','#1–48'], ['7과 문법','p.15–17','#89–108']], link:'', note:''},
-  '개포중학교': {items:[['7과 대화문','p.11–14','#1–42'], ['7과 문법','p.18–19','#76–90']], link:'https://drive.google.com/file/d/1gjPMu7KAzyxYRR9op-0ESYBrsTgmRbB5/view?usp=sharing', note:''},
-  '구룡중학교': {items:[['7과 대화문','p.11–14','#1–42'], ['7과 문법','p.18–19','#76–90']], link:'https://drive.google.com/file/d/1gjPMu7KAzyxYRR9op-0ESYBrsTgmRbB5/view?usp=sharing', note:''},
-  '역삼중학교': {items:[['7과 대화문','p.11–14','#1–42'], ['7과 문법','p.18–19','#76–90']], link:'https://drive.google.com/file/d/1gjPMu7KAzyxYRR9op-0ESYBrsTgmRbB5/view?usp=sharing', note:''},
-  '은성중학교': {items:[['6과 대화문','p.29–31','#1–30'], ['6과 문법','p.35–36','#76–88'], ['6과 Think & Write','메인북 p.69','']], link:'https://drive.google.com/file/d/164DYG2ZqFvpfyhChJ4_nlyjcUl2Cj_-M/view?usp=sharing', note:''},
-  '서운중학교': {items:[['6과 대화문','p.29–31','#1–30'], ['6과 문법','p.35–36','#76–88'], ['6과 Think & Write','메인북 p.69','']], link:'https://drive.google.com/file/d/164DYG2ZqFvpfyhChJ4_nlyjcUl2Cj_-M/view?usp=sharing', note:''},
-  '휘문중학교': {items:[['4과 대화문','p.31–33','#1–27'], ['4과 문법','p.36–39','#60–87']], link:'https://drive.google.com/file/d/1oHZiMM4d2Cj_0PU9zJECdqCZaeReAur7/view?usp=sharing', note:''},
-  '영동중학교': {items:[['6과 대화문','p.28–31','#1–37'], ['6과 문법','p.34–36','#68–91']], link:'https://drive.google.com/file/d/1-LvAkmX9Wh_nSn9AjTzgaiUS6dgfDM51/view?usp=sharing', note:''},
-  '상계제일중학교': {items:[['6과 대화문','p.28–32','#1–48'], ['6과 문법','p.34–36','#78–94']], link:'', note:'이전 중간고사 책 사용'},
-  '대원국제중학교': {items:[['7과 대화문','p.11–14','#1–42'], ['7과 문법','p.18–19','#76–90']], link:'', note:''},
+/* ---------------------------------------------------------
+   📒 숙제장 이미지 — 구글 드라이브 폴더 '!!!!!26 2학기 기말고사 숙제장'
+   1) HW_FEED_URL(앱스 스크립트 주소)이 있으면: 폴더에 올라온 최신 '학교명 [교과서] 숙제장' 이미지를 자동으로 보여 줍니다.
+   2) 없거나 불러오지 못하면: 아래 homeworkFiles의 파일을 보여 줍니다.
+      (드라이브에서 같은 파일에 '새 버전 업로드'를 하면 링크가 그대로라 자동으로 바뀝니다.)
+   --------------------------------------------------------- */
+const HW_FEED_URL = '';
+const homeworkFiles = {
+  '개포중학교':'1gIph1P4V-VVDh2iyrWSs_mzpJiGG52Le',
+  '도곡중학교':'1A4BReGQ2XInBGYJBVEyu7YeKK7wbf7Y7',
+  '진선여자중학교':'1WMyWWt16D7TBs8z8aGNcFDJh1axbR0b9',
+  '언남중학교':'1naZKozP8J4Sq07e7oJ98Y5ESMfUL-Tt1',
+  '대치중학교':'1KLLjn_va6afcc4pSoVGH3HttHcKBkWHQ',
+  '은성중학교':'16em9AwTty0H-pCox1BS6YKQZ0SOIezv1',
+  '행당중학교':'1Z6M_t7Vx7Us7Baek9gGtJanFzEYPLKa1',
+  '서운중학교':'1Qyb7H2N4Z65mxuoaI28d2XrHGXpWWNgd',
+  '역삼중학교':'1yLp9R97KLTAlTcUkqbi1kJ6OiWgU2C19',
+  '영동중학교':'1awAeLeyhWuv4G_EfQvLxjYerBb8-AlcD',
+  '대원국제중학교':'1vNPGMQ-0Gj-l5O7l_oforMbB-DV9muxd',
+  '구룡중학교':'1xaHW3sR6pytZ_t3Dvntsc2Y2ouZitpac',
+  '내곡중학교':'1QC8oyS6y-Umib2T_Q6Ulx1qFTyaqu_e-',
+  '대명중학교':'1EoNL6zM-REukrcbViCaM2BRtXDidjOGO',
+  '휘문중학교':'1-1LW2VTF8Ob8guKPOIhXd5AlFI5RtaDR',
+  '청담중학교':'1N-9SydFWp_8imQONmJNpdEb7ShrWd80J',
+  '언북중학교':'1rUZNEi1yq87KlRmdcHNYp8RSVKfN5L5X',
+  '잠실여자중학교':'1K1dscI-ZcIDdlQK2ihmIv94UfmfU6R9Y',
+  '정신여자중학교':'1Aa8xyW8B7xS6U9Dek84zmnyQegC8G0GG',
+  '정화여자중학교':'1mPT8q2aRn86srTbQGed8mSbjiTjfzlzX',
+  '중동중학교':'1A5iJfbLKJISX8nHPBSv-vgNmozBK5NPT',
+  '경원중학교':'1iYBOzi0nOfwvAMYo3aXFhPsSrHdXQpCN',
+  '대청중학교':'1Wgx-CcPma_zWWun3IYILjKOdjXik3y9Z',
+  '대왕중학교':'1AVB12OzLYE1tNeRfC8nN1UgPt4XoqITE',
+  '개원중학교':'1UcFIMgwrAlbwR0eLsxRQxeBzT1CBHqYi',
+  '신천중학교':'1EM9og-C-34jWx8AqH-pCrzL7gKRshcN8',
+  '상계제일중학교':'1GhKvenuSuATvUkJfd5GnKigi9QxhKVaJ',
+  '수서중학교':'1l2G7Wk9QmBsfUOxSkLEzZndNAhMZO9mG',
+  '서일중학교':'1fPmnEQl1cxYSzciIA6AUO0aEBy5LVfhJ',
+  '숙명여자중학교':'1GpxPbfAQb7oZjFKS_wlw7Bf-raBzAPlm',
+  '세곡중학교':'14SvibQDvXY-dRmUInmKyW0B_YWZlMFdT',
 };
 
-// 학교별 숙제장 이미지 (준비되면 파일 경로 입력)  예) '대왕중학교':'images/homework/daewang.jpg'
-const homeworkImages = {};
+/* ---------------------------------------------------------
+   📝 암기 숙제 범위 (날짜에 맞춰 자동으로 바뀜)
+   - from ~ to 기간에는 그 숙제가 맨 위에 보이고, 다음 숙제의 from 날짜가 되면 자동으로 바뀝니다.
+   - 지난 숙제는 '지난 숙제장 보기'에 모입니다. 시작일(from) 전의 숙제는 미리 넣어 둬도 보이지 않습니다.
+   - images: 구글 드라이브 공유 링크를 그대로 넣으면 됩니다. (공유 설정: 링크가 있는 모든 사용자)
+   - items: [범위, 페이지, 문항]  /  link: 암기 자료 링크  /  note: 안내 문구
+   예) {from:'11-16', to:'11-20', due:'11/16(월) – 11/20(금) 수업까지',
+        items:[], link:'', note:'', images:['https://drive.google.com/file/d/파일ID/view?usp=sharing']}
+   --------------------------------------------------------- */
+const homeworkPlan = {
+  '개원중학교': [
+    {from:'11-09', to:'11-13', due:'11/11(수) – 11/13(금) 수업까지', items:[['6과 대화문','p.26–28','#1–29'], ['6과 문법 & Think & Write','p.31–33','#58–82']], link:'https://drive.google.com/file/d/1RBT4EttekJZ2tV8U-yw4z2pu6SnT-AD9/view?usp=sharing', note:'', images:[]}
+  ],
+  '대왕중학교': [
+    {from:'11-09', to:'11-13', due:'11/11(수) – 11/13(금) 수업까지', items:[['7과 대화문','p.9–12','#1–34'], ['7과 문법','p.15–16','#62–78'], ['7과 Think & Write','p.16–17','#79–83']], link:'', note:'', images:[]}
+  ],
+  '세곡중학교': [
+    {from:'11-09', to:'11-13', due:'11/11(수) – 11/13(금) 수업까지', items:[['6과 대화문','p.26–28','#1–29'], ['6과 문법 & Think & Write','p.31–33','#58–82']], link:'https://drive.google.com/file/d/1RBT4EttekJZ2tV8U-yw4z2pu6SnT-AD9/view?usp=sharing', note:'', images:[]}
+  ],
+  '무학중학교': [
+    {from:'11-09', to:'11-13', due:'11/11(수) – 11/13(금) 수업까지', items:[['6과 대화문','p.26–28','#1–29'], ['6과 문법 & Think & Write','p.31–33','#58–82']], link:'https://drive.google.com/file/d/1RBT4EttekJZ2tV8U-yw4z2pu6SnT-AD9/view?usp=sharing', note:'', images:[]}
+  ],
+  '중동중학교': [
+    {from:'11-09', to:'11-13', due:'11/11(수) – 11/13(금) 수업까지', items:[['7과 대화문','p.9–12','#1–34'], ['7과 문법','p.15–16','#62–78'], ['7과 Think & Write','p.16–17','#79–83']], link:'', note:'', images:[]}
+  ],
+  '숙명여자중학교': [
+    {from:'11-09', to:'11-13', due:'11/11(수) – 11/13(금) 수업까지', items:[['7과 대화문','p.9–12','#1–34'], ['7과 문법','p.15–16','#62–78'], ['7과 Think & Write','p.16–17','#79–83']], link:'', note:'', images:[]}
+  ],
+  '언남중학교': [
+    {from:'11-09', to:'11-13', due:'11/11(수) – 11/13(금) 수업까지', items:[['4과 본문','P.32–36','#41–80'], ['4과 Review','P.37–38','#93–108']], link:'', note:'', images:[]}
+  ],
+  '진선여자중학교': [
+    {from:'11-09', to:'11-13', due:'11/11(수) – 11/13(금) 수업까지', items:[['7과 대화문','P.7–11','#1–41'], ['7과 문법','P.14–15','#73–84']], link:'', note:'', images:[]}
+  ],
+  '도곡중학교': [
+    {from:'11-09', to:'11-13', due:'11/11(수) – 11/13(금) 수업까지', items:[['7과 본문','p.12–14','#36–63'], ['7과 Review','p.17–20','#91–123']], link:'', note:'', images:[]}
+  ],
+  '대명중학교': [
+    {from:'11-09', to:'11-13', due:'11/11(수) – 11/13(금) 수업까지', items:[['7과 대화문','p.9–12','#1–34'], ['7과 문법','p.15–16','#62–78'], ['7과 Think & Write','p.16–17','#79–83']], link:'', note:'', images:[]}
+  ],
+  '내곡중학교': [
+    {from:'11-09', to:'11-13', due:'11/11(수) – 11/13(금) 수업까지', items:[['7과 대화문','p.9–12','#1–34'], ['7과 문법','p.15–16','#62–78'], ['7과 Think & Write','p.16–17','#79–83']], link:'', note:'', images:[]}
+  ],
+  '수서중학교': [
+    {from:'11-09', to:'11-13', due:'11/11(수) – 11/13(금) 수업까지', items:[['6과 대화문','p.28–32','#1–48'], ['6과 문법','p.34–36','#78–94']], link:'', note:'이전 중간고사 책 사용', images:[]}
+  ],
+  '대청중학교': [
+    {from:'11-09', to:'11-13', due:'11/11(수) – 11/13(금) 수업까지', items:[['4과 대화문','p.28–31','#1–29'], ['4과 문법','p.34–36','#59–84']], link:'', note:'미니북은 오늘 중으로 배부 예정', images:[]}
+  ],
+  '대치중학교': [
+    {from:'11-09', to:'11-13', due:'11/11(수) – 11/13(금) 수업까지', items:[['7과 대화문','p.9–12','#1–34'], ['7과 문법','p.15–16','#62–78'], ['7과 Think & Write','p.16–17','#79–83']], link:'', note:'', images:[]}
+  ],
+  '신천중학교': [
+    {from:'11-09', to:'11-13', due:'11/11(수) – 11/13(금) 수업까지', items:[['7과 대화문','p.7–11','#1–48'], ['7과 문법','p.15–17','#89–108']], link:'', note:'', images:[]}
+  ],
+  '개포중학교': [
+    {from:'11-09', to:'11-13', due:'11/11(수) – 11/13(금) 수업까지', items:[['7과 대화문','p.11–14','#1–42'], ['7과 문법','p.18–19','#76–90']], link:'https://drive.google.com/file/d/1gjPMu7KAzyxYRR9op-0ESYBrsTgmRbB5/view?usp=sharing', note:'', images:[]}
+  ],
+  '구룡중학교': [
+    {from:'11-09', to:'11-13', due:'11/11(수) – 11/13(금) 수업까지', items:[['7과 대화문','p.11–14','#1–42'], ['7과 문법','p.18–19','#76–90']], link:'https://drive.google.com/file/d/1gjPMu7KAzyxYRR9op-0ESYBrsTgmRbB5/view?usp=sharing', note:'', images:[]}
+  ],
+  '역삼중학교': [
+    {from:'11-09', to:'11-13', due:'11/11(수) – 11/13(금) 수업까지', items:[['7과 대화문','p.11–14','#1–42'], ['7과 문법','p.18–19','#76–90']], link:'https://drive.google.com/file/d/1gjPMu7KAzyxYRR9op-0ESYBrsTgmRbB5/view?usp=sharing', note:'', images:[]}
+  ],
+  '은성중학교': [
+    {from:'11-09', to:'11-13', due:'11/11(수) – 11/13(금) 수업까지', items:[['6과 대화문','p.29–31','#1–30'], ['6과 문법','p.35–36','#76–88'], ['6과 Think & Write','메인북 p.69','']], link:'https://drive.google.com/file/d/164DYG2ZqFvpfyhChJ4_nlyjcUl2Cj_-M/view?usp=sharing', note:'', images:[]}
+  ],
+  '서운중학교': [
+    {from:'11-09', to:'11-13', due:'11/11(수) – 11/13(금) 수업까지', items:[['6과 대화문','p.29–31','#1–30'], ['6과 문법','p.35–36','#76–88'], ['6과 Think & Write','메인북 p.69','']], link:'https://drive.google.com/file/d/164DYG2ZqFvpfyhChJ4_nlyjcUl2Cj_-M/view?usp=sharing', note:'', images:[]}
+  ],
+  '휘문중학교': [
+    {from:'11-09', to:'11-13', due:'11/11(수) – 11/13(금) 수업까지', items:[['4과 대화문','p.31–33','#1–27'], ['4과 문법','p.36–39','#60–87']], link:'https://drive.google.com/file/d/1oHZiMM4d2Cj_0PU9zJECdqCZaeReAur7/view?usp=sharing', note:'', images:[]}
+  ],
+  '영동중학교': [
+    {from:'11-09', to:'11-13', due:'11/11(수) – 11/13(금) 수업까지', items:[['6과 대화문','p.28–31','#1–37'], ['6과 문법','p.34–36','#68–91']], link:'https://drive.google.com/file/d/1-LvAkmX9Wh_nSn9AjTzgaiUS6dgfDM51/view?usp=sharing', note:'', images:[]}
+  ],
+  '상계제일중학교': [
+    {from:'11-09', to:'11-13', due:'11/11(수) – 11/13(금) 수업까지', items:[['6과 대화문','p.28–32','#1–48'], ['6과 문법','p.34–36','#78–94']], link:'', note:'이전 중간고사 책 사용', images:[]}
+  ],
+  '대원국제중학교': [
+    {from:'11-09', to:'11-13', due:'11/11(수) – 11/13(금) 수업까지', items:[['7과 대화문','p.11–14','#1–42'], ['7과 문법','p.18–19','#76–90']], link:'', note:'', images:[]}
+  ],
+};
 
 // 토요 ALL DAY CLINIC 신청 링크 (구글폼 등). 비워 두면 '신청 오픈 예정'으로 표시됩니다.
 const CLINIC_URL = 'https://docs.google.com/forms/d/e/1FAIpQLSfCpcsS4Zql2gOguSde61w9xQQBdhV_kJzq7rJUUcEmuUDW3A/viewform';
@@ -716,7 +816,11 @@ const DOW = ['일','월','화','수','목','금','토'];
 const toDate = md => { const [m,d] = md.split('-').map(Number); return new Date(YEAR, m-1, d); };
 const fmt = md => { const d = toDate(md); return `${d.getMonth()+1}/${d.getDate()}`; };
 const fmtLong = md => { const d = toDate(md); return `${d.getMonth()+1}월 ${d.getDate()}일`; };
-const today = (()=>{ const n = new Date(); return new Date(n.getFullYear(), n.getMonth(), n.getDate()); })();
+const today = (()=>{
+  const q = new URLSearchParams(location.search).get('date');   // 미리보기: 주소 뒤에 ?date=11-16
+  if(q && /^\d{2}-\d{2}$/.test(q)) return toDate(q);
+  const n = new Date(); return new Date(n.getFullYear(), n.getMonth(), n.getDate());
+})();
 const diffDays = d => Math.round((d - today) / 86400000);
 const shortName = n => n.replace('여자중학교','여').replace('중학교','');
 
@@ -923,24 +1027,76 @@ function setTab(id){
 }
 
 /* ---------- Homework (password) ---------- */
-function homeworkContent(n){
-  const src = homeworkImages[n];
-  return src ? `<div class="image-wrap"><img class="school-image" src="${src}" alt="${n} 숙제장"></div>`
-             : `<div class="prep">${n} 기말고사 숙제장은 준비 중입니다.</div>`;
+function driveId(url){
+  const m = String(url).match(/\/d\/([\w-]{10,})/) || String(url).match(/[?&]id=([\w-]{10,})/);
+  return m ? m[1] : '';
 }
-function memorizeHTML(n){
-  const m = memorizeRange[n]; if(!m) return '';
+function hwImageHTML(url){
+  const id = driveId(url);
+  const src = id ? `https://drive.google.com/thumbnail?id=${id}&sz=w2000` : url;
+  const alt = id ? `https://lh3.googleusercontent.com/d/${id}=w2000` : '';
+  const open = id ? `https://drive.google.com/file/d/${id}/view` : url;
+  return `<a class="hw-img" href="${open}" target="_blank" rel="noopener noreferrer">
+    <img src="${src}" alt="숙제장" loading="lazy" referrerpolicy="no-referrer" ${alt ? `onerror="if(!this.dataset.r){this.dataset.r=1;this.src='${alt}'}else{this.closest('.hw-img').classList.add('broken')}"` : ''}>
+    <span class="hw-broken">이미지를 불러오지 못했어요. 눌러서 드라이브에서 보기 →</span>
+  </a>`;
+}
+function hwRange(h){ return `${fmt(h.from)}(${DOW[toDate(h.from).getDay()]}) – ${fmt(h.to)}(${DOW[toDate(h.to).getDay()]})`; }
+function hwCard(h, label){
   return `<div class="card mem-card">
-    <span class="badge">📝 ${MEMO_TITLE}</span>
-    <h3>암기 미니북 <span class="mem-date">${MEMO_DUE}</span></h3>
-    ${m.note ? `<div class="mem-note">※ ${m.note}</div>` : ''}
-    <div class="mem-list">
-      ${m.items.map(i=>`<div class="mem-row"><span class="mem-part">${i[0]}</span><span class="mem-page">${i[1]}</span><span class="mem-no">${i[2]}</span></div>`).join('')}
-    </div>
-    ${m.link ? `<a class="mem-link" href="${m.link}" target="_blank" rel="noopener noreferrer">암기 자료 보기 (구글 드라이브) →</a>` : ''}
+    <span class="badge">📝 ${label}</span>
+    <h3>암기 미니북 <span class="mem-date">${h.due || hwRange(h)}</span></h3>
+    ${h.note ? `<div class="mem-note">※ ${h.note}</div>` : ''}
+    ${(h.items||[]).length ? `<div class="mem-list">${h.items.map(i=>`<div class="mem-row"><span class="mem-part">${i[0]}</span><span class="mem-page">${i[1]}</span><span class="mem-no">${i[2]}</span></div>`).join('')}</div>` : ''}
+    ${(h.images||[]).length ? `<div class="hw-imgs">${h.images.map(hwImageHTML).join('')}</div>` : ''}
+    ${h.link ? `<a class="mem-link" href="${h.link}" target="_blank" rel="noopener noreferrer">암기 자료 보기 (구글 드라이브) →</a>` : ''}
   </div>`;
 }
-function renderHomework(n){ document.getElementById('homework').innerHTML = memorizeHTML(n) + homeworkContent(n); }
+let hwFeed = null;
+const feedKey = n => n.replace('여자중학교','여중').replace('중학교','중');
+function loadHomeworkFeed(){
+  if(!HW_FEED_URL) return Promise.resolve(null);
+  if(hwFeed) return Promise.resolve(hwFeed);
+  return fetch(HW_FEED_URL).then(r=>r.json()).then(j=>{
+    const map = {};
+    (j.files||[]).forEach(f=>{
+      const short = String(f.name).split(/[\s\[_]/)[0].trim();
+      const key = short === '숙명중' ? '숙명여중' : short;
+      if(!map[key] || f.updated > map[key].updated) map[key] = f;
+    });
+    hwFeed = map; return map;
+  }).catch(()=>null);
+}
+function hwSheetHTML(id){
+  return `<div class="card hw-sheet">
+    <span class="badge">📒 숙제장</span>
+    <div class="hw-imgs" style="margin-top:4px">${hwImageHTML('https://drive.google.com/file/d/'+id+'/view')}</div>
+    <a class="mem-link" href="https://drive.google.com/file/d/${id}/view" target="_blank" rel="noopener noreferrer">숙제장 크게 보기 (구글 드라이브) →</a>
+  </div>`;
+}
+function renderHomework(n){
+  const box = document.getElementById('homework');
+  box.innerHTML = '<div class="hw-sheet-slot"></div>' + memoHTML(n);
+  const slot = box.querySelector('.hw-sheet-slot');
+  const fallback = homeworkFiles[n];
+  if(fallback) slot.innerHTML = hwSheetHTML(fallback);
+  loadHomeworkFeed().then(map=>{
+    const f = map && map[feedKey(n)];
+    if(f && f.id !== fallback && box.contains(slot)) slot.innerHTML = hwSheetHTML(f.id);
+    if(!slot.innerHTML && !box.querySelector('.mem-card')) box.innerHTML = `<div class="prep">${n} 숙제장은 준비 중입니다.</div>`;
+  });
+  if(!fallback && !HW_FEED_URL && !box.querySelector('.mem-card')) box.innerHTML = `<div class="prep">${n} 숙제장은 준비 중입니다.</div>`;
+}
+function memoHTML(n){
+  const list = (homeworkPlan[n] || []).slice().sort((a,b)=>toDate(a.from)-toDate(b.from));
+  const started = list.filter(h=>toDate(h.from) <= today);
+  const current = started.filter(h=>toDate(h.to) >= today);
+  const shown = current.length ? current : started.slice(-1);
+  const past = started.filter(h=>!shown.includes(h)).reverse();
+  let html = shown.map(h=>hwCard(h, toDate(h.to) >= today ? '이번 주 암기 범위' : '최근 암기 범위')).join('');
+  if(past.length) html += `<details class="plan-image hw-past"><summary>지난 암기 범위 보기 (${past.length})</summary><div class="hw-past-list">${past.map(h=>hwCard(h,'지난 범위 · '+hwRange(h))).join('')}</div></details>`;
+  return html;
+}
 
 /* ---------- 학교 상세 비밀번호 ---------- */
 const UNLOCK_KEY = 'dyb_final_2026_unlocked';
