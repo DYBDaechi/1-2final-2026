@@ -1076,7 +1076,7 @@ function hwSheetHTML(id){
 }
 function renderHomework(n){
   const box = document.getElementById('homework');
-  box.innerHTML = '<div class="hw-sheet-slot"></div>' + memoHTML(n);
+  box.innerHTML = memoHTML(n) + '<div class="hw-sheet-slot"></div>';
   const slot = box.querySelector('.hw-sheet-slot');
   const fallback = homeworkFiles[n];
   if(fallback) slot.innerHTML = hwSheetHTML(fallback);
