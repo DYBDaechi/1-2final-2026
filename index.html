@@ -683,6 +683,11 @@ const englishDay = {
       (드라이브에서 같은 파일에 '새 버전 업로드'를 하면 링크가 그대로라 자동으로 바뀝니다.)
    --------------------------------------------------------- */
 const HW_FEED_URL = 'https://script.google.com/macros/s/AKfycbwqd9WNQnP-n9YAY8DkDU4lzeTMvqBF0EbdOpqCbHDTjgaId_YF4dhnttD2gmFp27Z4/exec';
+// 사이트에 직접 올린 숙제장 이미지 (드라이브에 이 시각 이후로 새로 올리면 드라이브 것이 우선)
+const homeworkLocal = {
+  '잠실여자중학교': {src:'images/homework/jamsil.jpg', since:'2026-11-12T03:30:00Z'},
+  '정화여자중학교': {src:'images/homework/jeonghwa.jpg', since:'2026-11-12T03:30:00Z'}
+};
 const homeworkFiles = {
   '개포중학교':'1gIph1P4V-VVDh2iyrWSs_mzpJiGG52Le',
   '도곡중학교':'1A4BReGQ2XInBGYJBVEyu7YeKK7wbf7Y7',
@@ -729,6 +734,15 @@ const homeworkFiles = {
         items:[], link:'', note:'', images:['https://drive.google.com/file/d/파일ID/view?usp=sharing']}
    --------------------------------------------------------- */
 const homeworkPlan = {
+  '정화여자중학교': [
+    {from:'11-11', to:'11-17', due:'2회차 · 11/16,17 (월/화) 수업까지', items:[['6과 본문','p.14-16','#30-57'],['6과 Review','p.19-20','#83-95']], link:'', note:'', images:[]},
+    {from:'11-16', to:'11-20', due:'3회차 · 11/18,19,20 (수/목/금) 수업까지', items:[['7과 대화문','p.9-12','#1-34'],['7과 문법','p.15-16','#62-78'],['7과 Think & Write','p.16-17','#79-83']], link:'', note:'', images:[]},
+    {from:'11-18', to:'11-24', due:'4회차 · 11/23,24 (월/화) 수업까지', items:[['7과 본문','p.12-14','#35-61'],['7과 Review','p.17','#84-92']], link:'', note:'', images:[]},
+    {from:'11-23', to:'11-27', due:'5회차 · 11/25,26,27 (수/목/금) 수업까지', items:[['6과 본문/문법 빈칸','p.14-18','#30-76'],['[학교프린트] 영영풀이 암기','','']], link:'', note:'', images:[]},
+    {from:'11-25', to:'12-01', due:'6회차 · 11/30,12/1 (월/화) 수업까지', items:[['7과 본문/문법 빈칸','p.12-16','#35-78'],['[학교프린트] 문법 예문 암기','','']], link:'', note:'', images:[]},
+    {from:'11-30', to:'12-04', due:'7회차 · 12/2,3,4 (수/목/금) 수업까지', items:[['6과 문법','p.23-28','#1-73 홀수만'],['7과 문법','p.33-38','#1-68 홀수만']], link:'', note:'', images:[]},
+    {from:'12-02', to:'12-08', due:'8회차 · 12/7,8 (월/화) 수업까지', items:[['[학교프린트2차] 영영풀이 & 문법 예문 암기','','']], link:'', note:'', images:[]}
+  ],
   '잠실여자중학교': [
     {from:'11-11', to:'11-17', due:'2회차 · 11/16,17 (월/화) 수업까지', items:[['6과 본문','p.31-34','#38-67'],['6과 Review','p.36-38','#92-112']], link:'', note:'', images:[]},
     {from:'11-16', to:'11-20', due:'3회차 · 11/18,19,20 (수/목/금) 수업까지', items:[['7과 대화문','p.9-12','#1-34'],['7과 문법','p.15-17','#67-94']], link:'', note:'', images:[]},
@@ -1229,15 +1243,24 @@ function hwSheetHTML(id){
     <a class="mem-link" href="https://drive.google.com/file/d/${id}/view" target="_blank" rel="noopener noreferrer">숙제장 크게 보기 (구글 드라이브) →</a>
   </div>`;
 }
+function hwLocalHTML(src){
+  return `<div class="card hw-sheet">
+    <span class="badge">📒 숙제장</span>
+    <div class="hw-imgs" style="margin-top:4px"><a class="hw-img" href="${src}" target="_blank" rel="noopener"><img src="${src}" alt="숙제장"></a></div>
+    <a class="mem-link" href="${src}" target="_blank" rel="noopener">숙제장 크게 보기 →</a>
+  </div>`;
+}
 function renderHomework(n){
   const box = document.getElementById('homework');
   box.innerHTML = memoHTML(n) + '<div class="hw-sheet-slot"></div>';
   const slot = box.querySelector('.hw-sheet-slot');
-  const fallback = homeworkFiles[n];
-  if(fallback) slot.innerHTML = hwSheetHTML(fallback);
+  const local = homeworkLocal[n];
+  const fallback = local ? '' : homeworkFiles[n];
+  if(local) slot.innerHTML = hwLocalHTML(local.src);
+  else if(fallback) slot.innerHTML = hwSheetHTML(fallback);
   loadHomeworkFeed().then(map=>{
     const f = map && map[feedKey(n)];
-    if(f && f.id !== fallback && box.contains(slot)) slot.innerHTML = hwSheetHTML(f.id);
+    if(f && f.id !== fallback && box.contains(slot) && (!local || f.updated > local.since)) slot.innerHTML = hwSheetHTML(f.id);
     if(!slot.innerHTML && !box.querySelector('.mem-card')) box.innerHTML = `<div class="prep">${n} 숙제장은 준비 중입니다.</div>`;
   });
   if(!fallback && !HW_FEED_URL && !box.querySelector('.mem-card')) box.innerHTML = `<div class="prep">${n} 숙제장은 준비 중입니다.</div>`;
