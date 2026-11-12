@@ -690,6 +690,11 @@ const homeworkLocal = {
   '정신여자중학교': {src:'images/homework/jeongsin.jpg', since:'2026-11-12T03:55:00Z'},
   '경원중학교': {src:'images/homework/gyeongwon.jpg', since:'2026-11-12T04:01:00Z'}
 };
+// 숙제장 이미지를 잠시 숨길 학교 (안내 문구)
+const homeworkHidden = {
+  '서일중학교': '시험 범위가 확정되면 숙제장을 안내드립니다.',
+  '언북중학교': '숙제장은 추후 안내드립니다.'
+};
 const homeworkFiles = {
   '개포중학교':'1gIph1P4V-VVDh2iyrWSs_mzpJiGG52Le',
   '도곡중학교':'1A4BReGQ2XInBGYJBVEyu7YeKK7wbf7Y7',
@@ -1297,6 +1302,7 @@ function hwLocalHTML(src){
 }
 function renderHomework(n){
   const box = document.getElementById('homework');
+  if(homeworkHidden[n]){ box.innerHTML = memoHTML(n) + `<div class="prep">${homeworkHidden[n]}</div>`; return; }
   box.innerHTML = memoHTML(n) + '<div class="hw-sheet-slot"></div>';
   const slot = box.querySelector('.hw-sheet-slot');
   const local = homeworkLocal[n];
