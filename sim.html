@@ -1,0 +1,216 @@
+<!doctype html>
+<html lang="ko">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
+<title>Simulation 답안 제출 | DYB대치본원</title>
+<link href="https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@400;500;700;900&display=swap" rel="stylesheet">
+<style>
+:root{--navy:#14213D;--red:#C8102E;--red-soft:#FCEEF0;--bg:#F5F6FA;--line:#E3E6EE;--text:#1B1F2A;--muted:#5F677A;--ok:#14915a;--ok-soft:#e3f5ec;--warn:#d97706;--warn-soft:#fff3e0}
+*{box-sizing:border-box;margin:0;padding:0}
+body{font-family:"Noto Sans KR",-apple-system,"Malgun Gothic",sans-serif;background:var(--bg);color:var(--text);word-break:keep-all;-webkit-text-size-adjust:100%}
+button,input,select,textarea{font:inherit;color:inherit}
+button{cursor:pointer;border:none;background:none}
+header{background:var(--navy);color:#fff}
+.hin{max-width:720px;margin:0 auto;padding:16px 18px 20px}
+.wm small{display:block;font-size:11px;color:#c5cbe0;font-weight:500}
+.wm b{font-size:18px;font-weight:900;letter-spacing:-.3px}
+.wm b span{color:#ff6b7a}
+h1{font-size:22px;font-weight:900;margin-top:12px;letter-spacing:-.5px}
+.sub{font-size:13px;color:#c5cbe0;margin-top:3px}
+.back{float:right;font-size:12.5px;color:#fff;border:1px solid rgba(255,255,255,.35);border-radius:999px;padding:5px 11px;text-decoration:none;margin-top:2px}
+main{max-width:720px;margin:0 auto;padding:16px 16px 120px}
+.card{background:#fff;border:1px solid var(--line);border-radius:16px;padding:16px;margin-bottom:12px}
+.card h2{font-size:15px;font-weight:900;margin-bottom:10px;display:flex;align-items:center;gap:8px}
+.card h2 i{font-style:normal;background:var(--red);color:#fff;width:22px;height:22px;border-radius:50%;display:inline-flex;align-items:center;justify-content:center;font-size:12px}
+label{display:block;font-size:12.5px;font-weight:700;color:var(--muted);margin:10px 0 5px}
+input[type=text],select{width:100%;border:1px solid var(--line);border-radius:10px;padding:11px 12px;font-size:15px;background:#fff}
+input:focus,select:focus,textarea:focus{outline:2px solid #9aa6c7;border-color:transparent}
+.two{display:grid;grid-template-columns:1fr 1fr;gap:10px}
+.seg{display:grid;grid-template-columns:1fr 1fr;gap:8px;margin-top:2px}
+.seg button{border:1.5px solid var(--line);border-radius:12px;padding:11px 8px;font-weight:800;font-size:14px;background:#fff;line-height:1.3}
+.seg button small{display:block;font-weight:500;font-size:11.5px;color:var(--muted)}
+.seg button.on{border-color:var(--navy);background:var(--navy);color:#fff}.seg button.on small{color:#c5cbe0}
+.info{font-size:12.5px;color:var(--muted);background:var(--bg);border-radius:10px;padding:9px 11px;margin-top:10px;line-height:1.6}
+.info b{color:var(--text)}
+.q{display:flex;align-items:center;gap:10px;padding:9px 0;border-top:1px solid var(--line)}
+.q:first-of-type{border-top:none}
+.qn{width:30px;flex:none;font-weight:900;font-size:15px;text-align:center;color:var(--navy)}
+.qn.w{color:var(--muted)}
+.ch{display:flex;gap:6px;flex:1}
+.ch button{width:42px;height:42px;border-radius:50%;border:1.5px solid #cdd2de;font-size:17px;font-weight:700;color:#555;background:#fff;flex:none}
+.ch button.on{background:var(--red);border-color:var(--red);color:#fff}
+.q textarea{flex:1;border:1px solid var(--line);border-radius:10px;padding:9px 10px;font-size:14px;min-height:42px;resize:vertical}
+.tagw{font-size:10.5px;color:var(--muted);display:block;font-weight:600}
+.bar{position:fixed;left:0;right:0;bottom:0;background:#fff;border-top:1px solid var(--line);padding:10px 16px calc(10px + env(safe-area-inset-bottom));z-index:10}
+.bar .in{max-width:720px;margin:0 auto;display:flex;align-items:center;gap:12px}
+.prog{font-size:13px;color:var(--muted);font-weight:700}
+.prog b{color:var(--navy);font-size:15px}
+.go{margin-left:auto;background:var(--red);color:#fff;border-radius:12px;padding:13px 22px;font-weight:900;font-size:15px}
+.go:disabled{background:#c9ccd5}
+.modal{position:fixed;inset:0;background:rgba(10,15,30,.5);display:flex;align-items:center;justify-content:center;padding:18px;z-index:30}
+.mb{background:#fff;border-radius:18px;padding:22px;max-width:380px;width:100%;text-align:center}
+.mb h3{font-size:18px;font-weight:900;margin-bottom:6px}
+.mb p{font-size:14px;color:var(--muted);line-height:1.6}
+.mb .who{margin:12px 0;background:var(--bg);border-radius:10px;padding:10px;font-size:14px;font-weight:700}
+.mb .act{display:flex;gap:8px;margin-top:14px}.mb .act button{flex:1;padding:12px;border-radius:12px;font-weight:900}
+.mb .ok{background:var(--red);color:#fff}.mb .no{background:var(--bg)}
+.res{text-align:center;padding:26px 18px}
+.res .big{font-size:56px;font-weight:900;letter-spacing:-2px;line-height:1}
+.res .big small{font-size:20px}
+.res .badge{display:inline-block;margin-top:10px;padding:6px 16px;border-radius:999px;font-weight:900;font-size:16px}
+.res.ok .big{color:var(--ok)}.res.ok .badge{background:var(--ok-soft);color:var(--ok)}
+.res.ng .big{color:var(--warn)}.res.ng .badge{background:var(--warn-soft);color:var(--warn)}
+.res .wr{margin-top:16px;font-size:15px;line-height:1.7}
+.res .wr b{color:var(--red);font-size:18px}
+.res .meta{font-size:12.5px;color:var(--muted);margin-top:10px;line-height:1.6}
+.again{display:block;width:100%;margin-top:18px;background:var(--navy);color:#fff;border-radius:12px;padding:13px;font-weight:900}
+.err{color:var(--red);font-size:13px;font-weight:700;margin-top:8px;min-height:18px}
+.hidden{display:none!important}
+footer{text-align:center;color:var(--muted);padding:6px 0 0}
+footer small{display:block;font-size:11px;font-weight:700}footer b{font-size:15px;color:var(--navy);font-weight:900}footer b span{color:var(--red)}
+</style>
+</head>
+<body>
+<header><div class="hin">
+  <a class="back" href="./">← 내신 안내</a>
+  <div class="wm"><small>결과로 증명하는 1등급, DYB</small><b>DYB<span>대치본원</span></b></div>
+  <h1>📝 Simulation 답안 제출</h1>
+  <div class="sub">답을 입력하고 제출하면 바로 채점돼요 (객관식 자동채점)</div>
+</div></header>
+
+<main>
+  <section id="step1">
+    <div class="card">
+      <h2><i>1</i>내 정보</h2>
+      <div class="two">
+        <div><label>이름</label><input type="text" id="name" placeholder="예: 김하나" autocomplete="name"></div>
+        <div><label>학교</label><input type="text" id="school" placeholder="예: 개원중"></div>
+      </div>
+    </div>
+    <div class="card">
+      <h2><i>2</i>시험 고르기</h2>
+      <label>교과서</label>
+      <select id="set"><option value="">교과서를 골라 주세요</option></select>
+      <label>과</label>
+      <select id="lesson" disabled><option value="">교과서를 먼저 골라 주세요</option></select>
+      <label>시험 종류</label>
+      <div class="seg" id="kind">
+        <button data-k="S" class="on">Simulation Test<small>수업 시간에 본 시험 (30문항)</small></button>
+        <button data-k="R">재도전<small>토요 클리닉 재시험 (50문항)</small></button>
+      </div>
+      <div class="info" id="info">교과서와 과를 고르면 답안지가 나와요.</div>
+    </div>
+    <div class="card hidden" id="sheetCard">
+      <h2><i>3</i>답 입력 <span id="sheetTitle" style="font-weight:600;color:var(--muted);font-size:13px"></span></h2>
+      <div class="info" style="margin:0 0 6px">· 객관식은 번호를 누르세요. <b>답이 여러 개면 모두</b> 눌러요.<br>· 쓰기 문항은 칸에 답을 적어요. (선생님이 확인해요)</div>
+      <div id="sheet"></div>
+    </div>
+    <footer><small>결과로 증명하는 1등급, DYB</small><b>DYB<span>대치본원</span></b></footer>
+  </section>
+
+  <section id="step2" class="hidden">
+    <div class="card res" id="res"></div>
+    <footer><small>결과로 증명하는 1등급, DYB</small><b>DYB<span>대치본원</span></b></footer>
+  </section>
+</main>
+
+<div class="bar" id="bar"><div class="in">
+  <div class="prog" id="prog">시험을 골라 주세요</div>
+  <button class="go" id="go" disabled>제출하기</button>
+</div></div>
+
+<div class="modal hidden" id="confirm"><div class="mb">
+  <h3>제출할까요?</h3>
+  <p id="cmsg"></p>
+  <div class="who" id="cwho"></div>
+  <p style="font-size:12.5px">제출하면 고칠 수 없어요.</p>
+  <div class="act"><button class="no" id="cno">다시 볼게요</button><button class="ok" id="cok">제출</button></div>
+  <div class="err" id="cerr"></div>
+</div></div>
+
+<script>
+const API_URL='https://script.google.com/macros/s/AKfycbx2uB7RXk6YMcpZydgEpPVK4fVlN85W8wnqFqy5-ahMjK6Wlf_3cdGo2xf0RlgU0syukA/exec';
+const SETS={"DY68":{"label":"동아윤 (6·7·8과)","book":"동아윤","lessons":[{"l":"6","name":"6과","round":1,"title":"Lesson 6 Good for the Earth, Good for Us","S":"ooowwoooowoooooowwwoowwwwwoooo","R":"oooooooowwwooooooooooooooooooooooowwwwwwwwwooowwow"},{"l":"7","name":"7과","round":2,"title":"Lesson 7 Find Your Dream","S":"ooowwoooowoooooowwwoowwwwwoooo","R":"oooooooowwwooooooooooooooooooooooowwwwwwwwwooowwow"},{"l":"8","name":"8과","round":3,"title":"Lesson 8 Be Smart Online","S":"ooowwoooowoooooowwwoowwwwwoooo","R":"oooooowowwoooooooooooooooooooooooowwwwwwwwwooowwow"}]},"DY4":{"label":"동아윤 (4과)","book":"동아윤","lessons":[{"l":"4","name":"4과","round":1,"title":"Lesson 4 The Joy of Traveling","S":"ooowoowwoooooooowwwoowwwowoooo","R":"oooowwwoooowoowoowooooooooooowwwwwwwwwooooooooowow"}]},"DI68":{"label":"동아이 (6·7·8과)","book":"동아이","lessons":[{"l":"6","name":"6과","round":1,"title":"Lesson 6 Taste the World","S":"ooowwowooooooooowwwoowwwoooowo","R":"oooowwwoooowoowoowooooooooooowwwwwwwwwooooooooowow"},{"l":"7","name":"7과","round":2,"title":"Lesson 7 Think Big, Be Creative!","S":"ooowoowwoooooooowwwoowwwowoooo","R":"oooowwwoooowoowoowooooooooooowwwwwwwwwooooooooowow"},{"l":"8","name":"8과","round":3,"title":"Lesson 8 Winter Is Coming!","S":"ooowoowowooooooowwwoowwwowoowo","R":"oooowwwoooowoowoowooooooooooowwwwwwwwwooooooooowow"}]},"MR46":{"label":"미래엔 (4·5·6과)","book":"미래엔","lessons":[{"l":"4","name":"4과","round":1,"title":"Lesson 4 Let’s Travel Together!","S":"ooowoooowooooooowwwoowwwooowoo","R":"ooooowwwoooooowooooooooooowwwwwwwwwwwoooowooowooow"},{"l":"5","name":"5과","round":2,"title":"Lesson 5 Think Green, Live Green","S":"owooooowwooooooowwwoowwwwooooo","R":"ooooowwwoooooowooooooooooowwwwwwwwwwwoooowooowooow"},{"l":"6","name":"6과","round":3,"title":"Lesson 6 Dear Future Me","S":"owooooowwooooooowwwoowwwwoooow","R":"ooooowwwoooooowooooooooooowwwwwwwwwwwoooowooowooow"}]},"MR57":{"label":"미래엔 (5·6·7과)","book":"미래엔","lessons":[{"l":"5","name":"5과","round":1,"title":"Lesson 5 Think Green, Live Green","S":"ooowwoooowoooooowwwoowwwwoooow","R":"oooowwwoooooowooooooooooooowowwwwwwwwwwwooooooooow"},{"l":"6","name":"6과","round":2,"title":"Lesson 6 Dear Future Me","S":"ooowwoooowoooooowwwoowwwwwoooo","R":"oooowwwoooooowooooooooooooowowwwwwwwwwwwooooooooow"},{"l":"7","name":"7과","round":3,"title":"Lesson 7 You Know What?","S":"ooowwoooowoooooowwwoowwwwoooow","R":"oooowwwoooowowooooooooooooowowwwwwwwwwwwooooooooow"}]},"BS78":{"label":"비상 (7·8과)","book":"비상","lessons":[{"l":"7","name":"7과","round":1,"title":"Lesson 7 Greener, Greater","S":"owooooowwooooooowwwoowwwwoooow","R":"ooooowwwoooooowooooooooooowwwwwwwwwwwoooowooowooow"},{"l":"8","name":"8과","round":2,"title":"Lesson 8 For a Better Tomorrow","S":"owooooowwooooooowwwoowwwwoooow","R":"ooooowwwoooooowooooooooooowwwwwwwwwwwoooowooowooow"}]},"NK78":{"label":"능률김 (7·8과)","book":"능률김","lessons":[{"l":"7","name":"7과","round":1,"title":"Lesson 7 Save Earth, Save Us","S":"ooowoooowwoooooowwwoowwwwoooow","R":"ooooowwwoooooowooooooooooowowwwwwwwwwwoooooooowwow"},{"l":"8","name":"8과","round":2,"title":"Lesson 8 Dive into Stories","S":"ooowoooowwoooooowwwoowwwwoooow","R":"ooooowwwoooooowooooooooooowowwwwwwwwwwoooooooowwow"}]},"CJ46":{"label":"천재소 (4·5·6과)","book":"천재소","lessons":[{"l":"4","name":"4과","round":1,"title":"Lesson 4 My Delicious Summer Trip","S":"ooowwoooowoooooowwwoowwwwooowo","R":"oooooooowwwoooooooooooooooooowwwwwwwwwoooooowwooww"},{"l":"5","name":"5과","round":2,"title":"Lesson 5 Share Your Joys and Worries","S":"ooowwoooowoooooowwwoowwwwooowo","R":"oooooooowwwoooooooooooooooooowwwwwwwwwoooooowwooww"},{"l":"6","name":"6과","round":3,"title":"Lesson 6 Heroes in Nature","S":"ooowwoooowoooooowwwoowwwoooowo","R":"ooowwwoooowoooooooooowooowwwwwowoooowooooooooowwww"}]},"CJ67":{"label":"천재소 (6·7과·Special Lesson)","book":"천재소","lessons":[{"l":"6","name":"6과","round":1,"title":"Lesson 6 Heroes in Nature","S":"ooowwoooowoooooowwwoowwwoooowo","R":"ooowwwoooowoooooooooowooowwwwwowoooowooooooooowwww"},{"l":"7","name":"7과","round":2,"title":"Lesson 7 Love for Art","S":"ooowwoooowoooooowwwoowwwowoooo","R":"ooowwwoooowoooooooooooooooooooooooooooowwwwwwwwwww"},{"l":"Special Lesson","name":"Special Lesson","round":3,"title":"Special Lesson","S":"ooowwoooowoooooowwwoowwwowoooo","R":"ooowwwoooowoooooooooooooooooooooooooooowwwwwwwwwww"}]}};
+const CIR=['①','②','③','④','⑤'];
+const $=s=>document.querySelector(s);
+const esc=s=>String(s??'').replace(/[&<>"']/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]));
+const st={set:'',lesson:'',kind:'S',types:'',ans:[]};
+const store={get(k){try{return localStorage.getItem('sim_'+k)||''}catch(e){return ''}},set(k,v){try{localStorage.setItem('sim_'+k,v)}catch(e){}}};
+
+$('#name').value=store.get('name'); $('#school').value=store.get('school');
+$('#set').innerHTML+=Object.entries(SETS).map(([k,v])=>`<option value="${k}">${esc(v.label)}</option>`).join('');
+if(store.get('set') && SETS[store.get('set')]){ $('#set').value=store.get('set'); onSet(); }
+
+function onSet(){
+  st.set=$('#set').value; store.set('set',st.set);
+  const ls=st.set?SETS[st.set].lessons:[];
+  $('#lesson').disabled=!ls.length;
+  $('#lesson').innerHTML='<option value="">과를 골라 주세요</option>'+ls.map(l=>`<option value="${esc(l.l)}">${esc(l.name)} — ${esc(l.title)}</option>`).join('');
+  st.lesson=''; build();
+}
+$('#set').addEventListener('change',onSet);
+$('#lesson').addEventListener('change',()=>{ st.lesson=$('#lesson').value; build(); });
+$('#kind').addEventListener('click',e=>{ const b=e.target.closest('button'); if(!b) return;
+  if(st.ans.some(x=>x) && !confirm('시험 종류를 바꾸면 입력한 답이 지워져요. 바꿀까요?')) return;
+  document.querySelectorAll('#kind button').forEach(x=>x.classList.toggle('on',x===b)); st.kind=b.dataset.k; build(); });
+
+function build(){
+  const L=st.set&&st.lesson ? SETS[st.set].lessons.find(x=>x.l===st.lesson) : null;
+  if(!L){ $('#sheetCard').classList.add('hidden'); $('#info').innerHTML='교과서와 과를 고르면 답안지가 나와요.'; st.types=''; prog(); return; }
+  st.types=L[st.kind]; st.ans=new Array(st.types.length).fill('');
+  const nObj=[...st.types].filter(t=>t==='o').length;
+  $('#info').innerHTML=`<b>${esc(SETS[st.set].book)} ${esc(L.name)}</b> ${st.kind==='S'?'Simulation Test':'재도전'} · Sim <b>${L.round}차</b><br>총 ${st.types.length}문항 (객관식 ${nObj} · 쓰기 ${st.types.length-nObj}) · <b>90점 이상 통과</b>`;
+  $('#sheetTitle').textContent=`${SETS[st.set].book} ${L.name} · ${st.kind==='S'?'Simulation':'재도전'}`;
+  $('#sheet').innerHTML=[...st.types].map((t,i)=> t==='o'
+    ? `<div class="q"><div class="qn">${i+1}</div><div class="ch" data-i="${i}">${CIR.map((c,j)=>`<button data-v="${j+1}" aria-label="${j+1}번">${c}</button>`).join('')}</div></div>`
+    : `<div class="q"><div class="qn w">${i+1}<span class="tagw">쓰기</span></div><textarea data-i="${i}" rows="1" placeholder="답을 적어요"></textarea></div>`).join('');
+  $('#sheetCard').classList.remove('hidden'); prog();
+}
+$('#sheet').addEventListener('click',e=>{ const b=e.target.closest('.ch button'); if(!b) return;
+  const i=+b.parentElement.dataset.i; b.classList.toggle('on');
+  st.ans[i]=[...b.parentElement.querySelectorAll('.on')].map(x=>x.dataset.v).join(''); prog(); });
+$('#sheet').addEventListener('input',e=>{ if(e.target.tagName==='TEXTAREA'){ st.ans[+e.target.dataset.i]=e.target.value; prog(); } });
+function prog(){
+  if(!st.types){ $('#prog').textContent='시험을 골라 주세요'; $('#go').disabled=true; return; }
+  const done=st.ans.filter(x=>String(x).trim()).length;
+  $('#prog').innerHTML=`응답 <b>${done}</b> / ${st.types.length}`; $('#go').disabled=false;
+}
+$('#go').addEventListener('click',()=>{
+  const name=$('#name').value.trim(), school=$('#school').value.trim();
+  if(!name){ alert('이름을 먼저 적어 주세요'); $('#name').focus(); window.scrollTo({top:0,behavior:'smooth'}); return; }
+  const emptyObj=[...st.types].map((t,i)=>t==='o'&&!st.ans[i]?i+1:0).filter(Boolean);
+  const L=SETS[st.set].lessons.find(x=>x.l===st.lesson);
+  $('#cmsg').innerHTML= emptyObj.length?`<b style="color:var(--red)">객관식 ${emptyObj.length}문항이 비어 있어요</b> (${emptyObj.slice(0,10).join(', ')}${emptyObj.length>10?' …':''})`:'모든 객관식 문항에 답했어요.';
+  $('#cwho').textContent=`${name}${school?' · '+school:''} — ${SETS[st.set].book} ${L.name} ${st.kind==='S'?'Simulation':'재도전'}`;
+  $('#cerr').textContent=''; $('#confirm').classList.remove('hidden');
+});
+$('#cno').addEventListener('click',()=>$('#confirm').classList.add('hidden'));
+$('#cok').addEventListener('click',async()=>{
+  const name=$('#name').value.trim(), school=$('#school').value.trim();
+  store.set('name',name); store.set('school',school);
+  $('#cok').disabled=true; $('#cok').textContent='채점 중…';
+  try{
+    const r=await fetch(API_URL,{method:'POST',body:JSON.stringify({action:'submitSim',name,school,set:st.set,lesson:st.lesson,kind:st.kind,answers:st.ans})}).then(r=>r.json());
+    if(!r.ok) throw new Error(r.error||'제출 실패');
+    showResult(r);
+  }catch(e){ $('#cerr').textContent='제출에 실패했어요. 인터넷 연결을 확인하고 다시 눌러 주세요.'; }
+  finally{ $('#cok').disabled=false; $('#cok').textContent='제출'; }
+});
+function showResult(r){
+  const L=SETS[st.set].lessons.find(x=>x.l===st.lesson);
+  const nW=[...st.types].filter(t=>t==='w').length;
+  $('#res').className='card res '+(r.pass?'ok':'ng');
+  $('#res').innerHTML=`<div style="font-size:13px;color:var(--muted);font-weight:700;margin-bottom:8px">${esc(SETS[st.set].book)} ${esc(L.name)} · ${st.kind==='S'?'Simulation Test':'재도전'} · Sim ${r.round}차</div>
+    <div class="big">${r.score}<small>점</small></div>
+    <div class="badge">${r.pass?'🎉 통과!':'재시험 대상'}</div>
+    <div class="wr">${r.wrong.length?`틀린 번호<br><b>${r.wrong.join(', ')}</b>`:'객관식 모두 정답! 👏'}</div>
+    <div class="meta">객관식 ${r.correct} / ${r.total} 정답 · 점수는 객관식 기준이에요.${nW?`<br>쓰기 ${nW}문항은 선생님이 따로 확인해요.`:''}${r.matched?'':'<br><b style="color:var(--red)">클리닉 명단에서 이름을 찾지 못했어요. 선생님께 말씀드려 주세요.</b>'}<br>틀린 문제는 오답 노트에 옮겨 적고 이유를 정리하세요.</div>
+    <button class="again" id="again">다른 시험 제출하기</button>`;
+  $('#confirm').classList.add('hidden'); $('#step1').classList.add('hidden'); $('#bar').classList.add('hidden'); $('#step2').classList.remove('hidden');
+  window.scrollTo({top:0});
+  $('#again').onclick=()=>{ $('#step2').classList.add('hidden'); $('#step1').classList.remove('hidden'); $('#bar').classList.remove('hidden'); $('#lesson').value=''; st.lesson=''; build(); window.scrollTo({top:0}); };
+}
+</script>
+</body>
+</html>
