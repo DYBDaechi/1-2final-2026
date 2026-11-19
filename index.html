@@ -25,6 +25,16 @@ html{scroll-behavior:smooth}
 body{margin:0;font-family:"Noto Sans KR",-apple-system,BlinkMacSystemFont,"Segoe UI",Arial,sans-serif;background:var(--bg);color:var(--text);line-height:1.55;word-break:keep-all}
 button{font-family:inherit}
 
+/* ---------- Simulation 답안 제출 버튼 ---------- */
+.sim-cta{display:flex;align-items:center;gap:14px;background:#fff;border:2px solid var(--red);border-radius:16px;padding:14px 16px;margin:14px 0;text-decoration:none;color:var(--text);box-shadow:0 4px 14px rgba(200,16,46,.10)}
+.sim-cta:hover{background:var(--red-soft)}
+.sim-ic{width:46px;height:46px;border-radius:12px;background:var(--red);display:flex;align-items:center;justify-content:center;font-size:24px;flex:none}
+.sim-tx{display:flex;flex-direction:column;line-height:1.35}
+.sim-tx b{font-size:16px;font-weight:900;color:var(--navy)}
+.sim-tx small{font-size:12.5px;color:var(--muted)}
+.sim-go{margin-left:auto;background:var(--red);color:#fff;font-weight:800;font-size:13.5px;padding:8px 14px;border-radius:999px;white-space:nowrap}
+@media (max-width:480px){.sim-go{display:none}}
+
 /* ---------- Header ---------- */
 header{background:var(--navy);color:#fff;position:relative;overflow:hidden}
 header::before{content:"";position:absolute;right:-120px;top:-160px;width:420px;height:420px;border-radius:50%;background:radial-gradient(circle,rgba(200,16,46,.35) 0%,rgba(200,16,46,0) 70%);pointer-events:none}
@@ -369,6 +379,12 @@ footer{background:var(--navy);color:rgba(255,255,255,.7);font-size:12px}
 <main>
   <div id="home">
     <div class="dday-strip" id="ddayStrip"></div>
+
+    <a class="sim-cta" href="sim.html">
+      <span class="sim-ic">📝</span>
+      <span class="sim-tx"><b>Simulation 답안 제출</b><small>답을 입력하면 바로 자동채점 · 틀린 번호 확인</small></span>
+      <span class="sim-go">제출하기 ›</span>
+    </a>
 
     <nav class="slide-nav" id="slideNav">
       <button class="snav active" data-slide="0"><span>01</span>내신 수업 진행 방식</button>
